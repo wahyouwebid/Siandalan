@@ -30,7 +30,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun setupViewModel() {
         viewModel.getDataHome()
         val data = DataHome(
-            2,4,5,12,23,12, 12,
+            32, 10,41,53,23,60, 30,
             listOf(
                 DataHome.DataApprovedItem(
                     "ANDL-202305008",

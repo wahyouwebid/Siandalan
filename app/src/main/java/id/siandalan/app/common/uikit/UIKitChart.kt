@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.RadioGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.components.XAxis
@@ -98,18 +97,21 @@ class UIKitChart(
         entries.add(BarEntry(0f, data.long?.toFloat() ?: 0f))
 
         val dataSet = BarDataSet(entries, "Bar Data")
+        dataSet.setDrawValues(true)
+        dataSet.valueTextColor = Color.BLACK
+        dataSet.valueTextSize = 20f
         dataSet.colors = getColor()
-        dataSet.valueTextSize = 10f
-
         val barData = BarData(dataSet)
-        barData.barWidth = 0.8f
-
+        barData.barWidth = 0.9f
         barChart.data = barData
+        barChart.setDrawValueAboveBar(true)
+        barChart.setFitBars(true)
+        barChart.animateY(4500)
         barChart.setFitBars(true)
         barChart.setDrawValueAboveBar(true)
         barChart.description.isEnabled = false
         barChart.legend.isEnabled = false
-        barChart.axisLeft.isEnabled = false
+        barChart.axisLeft.isEnabled = true
         barChart.axisRight.isEnabled = true
         barChart.xAxis.setDrawGridLines(false)
         barChart.xAxis.position = XAxis.XAxisPosition.BOTTOM

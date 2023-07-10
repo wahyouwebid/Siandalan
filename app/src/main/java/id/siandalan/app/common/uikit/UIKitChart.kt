@@ -26,11 +26,11 @@ class UIKitChart(
     )
 
     fun setupChart() = with(binding) {
+        pieChart.setUsePercentValues(true)
         pieChart.description.isEnabled = false
         pieChart.legend.isEnabled = false
         pieChart.isRotationEnabled = true
         pieChart.setEntryLabelTextSize(12f)
-        pieChart.setUsePercentValues(true)
         pieChart.setDrawEntryLabels(false)
     }
 
@@ -60,7 +60,7 @@ class UIKitChart(
         pieData.setDrawValues(true)
         pieData.setValueTextSize(14f)
         pieData.setValueTextColor(Color.WHITE)
-        pieData.setValueFormatter(PercentFormatter())
+        pieData.setValueFormatter(PercentFormatter(pieChart))
         pieChart.data = pieData
         pieChart.invalidate()
     }

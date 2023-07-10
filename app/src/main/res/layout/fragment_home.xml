@@ -40,6 +40,7 @@
                 android:layout_marginStart="@dimen/_24sdp"
                 android:layout_marginTop="@dimen/_32sdp"
                 android:fontFamily="@font/poppins_bold"
+                android:textSize="@dimen/_18ssp"
                 android:textColor="@color/colorTextPrimary"
                 android:text="@string/title_section_approval"
                 app:layout_constraintTop_toBottomOf="@+id/uikit_dashboard"/>
@@ -60,6 +61,7 @@
                 android:layout_marginStart="@dimen/_24sdp"
                 android:layout_marginTop="@dimen/_32sdp"
                 android:fontFamily="@font/poppins_bold"
+                android:textSize="@dimen/_18ssp"
                 android:textColor="@color/colorTextPrimary"
                 android:text="@string/title_section_chart"
                 app:layout_constraintTop_toBottomOf="@+id/rv_data"/>

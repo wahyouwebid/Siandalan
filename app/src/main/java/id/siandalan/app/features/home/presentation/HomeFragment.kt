@@ -1,14 +1,8 @@
 package id.siandalan.app.features.home.presentation
 
-import android.graphics.Color
 import android.os.Bundle
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.formatter.PercentFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import id.siandalan.app.R
 import id.siandalan.app.common.base.BaseFragment
@@ -27,22 +21,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         HomeAdapter()
     }
 
-    override fun setupView(savedInstanceState: Bundle?) {
-        setupToolbar()
+    override fun setupView(savedInstanceState: Bundle?) = with(binding){
+        uikitToolbar.setToolbar(getString(R.string.app_name))
+        uikitChart.setupChart()
         setupAdapter()
-        binding.uikitChart.setupChart()
     }
 
     override fun setupViewModel() {
         viewModel.getDataHome()
-        viewModel.home.observe(viewLifecycleOwner) { state ->
-            when(state) {
-                is HomeResultState.Success -> {}
-                is HomeResultState.Loading -> {}
-                is HomeResultState.Error -> {}
-            }
-        }
-
         val data = DataHome(
             2,4,5,12,23,12, 12,
             listOf(
@@ -74,6 +60,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 ),
             )
         )
+        viewModel.home.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is HomeResultState.Success -> {}
+                is HomeResultState.Loading -> {}
+                is HomeResultState.Error -> {}
+            }
+        }
 
         onSuccess(data)
     }
@@ -89,10 +82,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         homeAdapter.setData(data.dataApproved)
 
         uikitChart.setData(data)
-    }
-
-    private fun setupToolbar() = with(binding) {
-        uikitToolbar.setToolbar(getString(R.string.app_name))
     }
 
     private fun setupAdapter() = with(binding) {

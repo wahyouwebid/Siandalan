@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Siandalan</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Permohonan</string>
+    <string name="title_content_description">ImageView</string>
+    <string name="title_dashboard_new_request">Pengajuan Baru</string>
+    <string name="title_dashboard_onprogress">Sedang Proses</string>
+    <string name="title_dashboard_verified">Terverifikasi</string>
+    <string name="title_dashboard_draft_approval">Draft Persetujuan</string>
+    <string name="title_dashboard_done">Sudah Selesai</string>
+    <string name="title_dashboard_pending">Pending</string>
+    <string name="title_section_approval">APPROVAL</string>
+    <string name="title_section_chart">CHART</string>
+    <string name="title_chart_legend_request">Permohonan</string>
+    <string name="title_chart_legend_progress">Sedang proses</string>
+    <string name="title_chart_legend_draft">Draft SK</string>
+    <string name="title_chart_legend_approved">Disetujui</string>
+    <string name="title_chart_legend_done">Sudah Selesai</string>
+    <string name="title_chart_legend_pending">Pendingi</string>
+</resources>

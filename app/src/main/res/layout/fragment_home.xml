@@ -16,10 +16,11 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fillViewport="true"
+        android:overScrollMode="never"
         android:background="@drawable/bg_root"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uikit_toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/uikit_toolbar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,21 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:overScrollMode="never"
-                android:nestedScrollingEnabled="false"
                 app:layout_constraintTop_toBottomOf="@+id/tv_approval"/>
-
-            <TextView
-                android:id="@+id/tv_chart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_24sdp"
-                android:layout_marginTop="@dimen/_32sdp"
-                android:fontFamily="@font/poppins_bold"
-                android:textSize="@dimen/_18ssp"
-                android:textColor="@color/colorTextPrimary"
-                android:text="@string/title_section_chart"
-                app:layout_constraintTop_toBottomOf="@+id/rv_data"/>
 
             <id.siandalan.app.common.uikit.UIKitChart
                 android:id="@+id/uikit_chart"
@@ -72,6 +59,5 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

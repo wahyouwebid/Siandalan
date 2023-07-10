@@ -10,17 +10,15 @@ import id.siandalan.app.databinding.AdapterApprovalBinding
 import id.siandalan.app.features.home.domain.model.DataHome
 import id.siandalan.app.features.home.presentation.model.Category
 
-class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(
+    private val action: (DataHome.DataApprovedItem) -> Unit
+) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     private var data = ArrayList<DataHome.DataApprovedItem>()
 
-    @SuppressLint("NotifyDataSetChanged")
     fun setData(itemList: List<DataHome.DataApprovedItem>?) {
-        if (itemList != null){
-            data.clear()
-            data.addAll(itemList)
-            notifyDataSetChanged()
-        }
+        data.clear()
+        itemList?.let { data.addAll(it) }
     }
 
     @SuppressLint("SetTextI18n")
@@ -33,6 +31,9 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
             tvDate.text = item.dateProcess
             tvCategory.text = item.category
             byCategory(holder.view, item)
+            root.setOnClickListener {
+                action.invoke(item)
+            }
         }
     }
 

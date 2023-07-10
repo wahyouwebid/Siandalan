@@ -18,7 +18,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private val viewModel: HomeViewModel by viewModels()
 
     private val homeAdapter : HomeAdapter by lazy {
-        HomeAdapter()
+        HomeAdapter {}
     }
 
     override fun setupView(savedInstanceState: Bundle?) = with(binding){
@@ -58,16 +58,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     "Tinggi",
                     "28-04-2023",
                 ),
+
+                DataHome.DataApprovedItem(
+                    "ANDL-202304213",
+                    "ANDL-202304213",
+                    "PT. DOK PANTI LAMONGAN",
+                    "Kegiatan Pengembangan Reparasi Kapal, Perahu dan Bangunan Terapung",
+                    "Tinggi",
+                    "28-04-2023",
+                ),
+
+                DataHome.DataApprovedItem(
+                    "ANDL-202304213",
+                    "ANDL-202304213",
+                    "PT. DOK PANTI LAMONGAN",
+                    "Kegiatan Pengembangan Reparasi Kapal, Perahu dan Bangunan Terapung",
+                    "Tinggi",
+                    "28-04-2023",
+                ),
             )
         )
         viewModel.home.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is HomeResultState.Success -> {}
                 is HomeResultState.Loading -> {}
-                is HomeResultState.Error -> {}
+                is HomeResultState.Error -> {
+
+                }
             }
         }
-
         onSuccess(data)
     }
 
@@ -80,11 +99,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         uikitDashboard.setPending(data.long.toString())
 
         homeAdapter.setData(data.dataApproved)
+        homeAdapter.notifyItemRangeChanged(0, homeAdapter.itemCount)
 
-        uikitChart.setData(data)
+        uikitChart.setDataPieChart(data)
+        uikitChart.setDataBarChart(data)
     }
 
     private fun setupAdapter() = with(binding) {
+        rvData.setHasFixedSize(false)
+        rvData.isNestedScrollingEnabled = false
         rvData.layoutManager = LinearLayoutManager(context)
         rvData.adapter = homeAdapter
     }

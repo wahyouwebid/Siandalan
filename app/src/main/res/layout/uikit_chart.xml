@@ -2,94 +2,195 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_250sdp">
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_chart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_32sdp"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="@dimen/_18ssp"
+        android:textColor="@color/colorTextPrimary"
+        android:text="@string/title_section_chart"
+        app:layout_constraintTop_toBottomOf="@+id/rv_data"/>
+
+    <RadioGroup
+        android:id="@+id/rg_chart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginEnd="@dimen/_24sdp"
+        android:layout_gravity="end"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/rb_piechart"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@android:color/transparent"
+            android:checked="true"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_3sdp"
+            android:drawablePadding="@dimen/_8sdp"
+            android:drawableStart="@drawable/ic_chart_pie"
+            android:drawableTint="@color/radio_flat_text_selector"
+            android:textColor="@color/radio_flat_text_selector" />
+
+        <RadioButton
+            android:id="@+id/rb_barchart"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@android:color/transparent"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_3sdp"
+            android:drawablePadding="@dimen/_8sdp"
+            android:drawableStart="@drawable/ic_chart_bar"
+            android:drawableTint="@color/radio_flat_text_selector"
+            android:textColor="@color/radio_flat_text_selector" />
+
+    </RadioGroup>
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pie_chart"
-        android:layout_width="0dp"
-        android:layout_weight="0.7"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp"
         android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline" />
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.4"
-        android:orientation="vertical"
-        android:gravity="center_vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/pie_chart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/pie_chart">
+        android:id="@+id/cl_legend_pie_chart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_16sdp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_24sdp"
+            android:orientation="vertical"
             android:gravity="center_vertical"
-            android:text="@string/title_chart_legend_request"
-            android:drawablePadding="@dimen/_4sdp"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="@dimen/_12ssp"
-            app:drawableStartCompat="@drawable/ic_chart_legend_1" />
+            app:layout_constraintBottom_toBottomOf="@+id/pie_chart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/pie_chart">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center_vertical"
-            android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/title_chart_legend_progress"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="@dimen/_12ssp"
-            app:drawableStartCompat="@drawable/ic_chart_legend_2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:text="@string/title_chart_legend_request"
+                android:drawablePadding="@dimen/_4sdp"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/_11ssp"
+                app:drawableStartCompat="@drawable/ic_chart_legend"
+                app:drawableTint="@color/colorDashboard1" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center_vertical"
-            android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/title_chart_legend_draft"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="@dimen/_12ssp"
-            app:drawableStartCompat="@drawable/ic_chart_legend_3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="@string/title_chart_legend_progress"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/_11ssp"
+                app:drawableStartCompat="@drawable/ic_chart_legend"
+                app:drawableTint="@color/colorDashboard2"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center_vertical"
-            android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/title_chart_legend_approved"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="@dimen/_12ssp"
-            app:drawableStartCompat="@drawable/ic_chart_legend_4" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center_vertical"
-            android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/title_chart_legend_done"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="@dimen/_12ssp"
-            app:drawableStartCompat="@drawable/ic_chart_legend_5" />
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_24sdp"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/_4sdp"
+                android:text="@string/title_chart_legend_draft"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/_11ssp"
+                app:drawableStartCompat="@drawable/ic_chart_legend"
+                app:drawableTint="@color/colorDashboard3"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:drawablePadding="@dimen/_4sdp"
+                android:text="@string/title_chart_legend_approved"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/_11ssp"
+                app:drawableStartCompat="@drawable/ic_chart_legend"
+                app:drawableTint="@color/colorDashboard4"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center_vertical"
-            android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/title_chart_legend_pending"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="@dimen/_12ssp"
-            app:drawableStartCompat="@drawable/ic_chart_legend_6" />
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/_24sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/_4sdp"
+                android:text="@string/title_chart_legend_done"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/_11ssp"
+                app:drawableStartCompat="@drawable/ic_chart_legend"
+                app:drawableTint="@color/colorDashboard5"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:drawablePadding="@dimen/_4sdp"
+                android:text="@string/title_chart_legend_pending"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/_11ssp"
+                app:drawableStartCompat="@drawable/ic_chart_legend"
+                app:drawableTint="@color/colorDashboard6"/>
+        </LinearLayout>
     </LinearLayout>
+
+    <com.github.mikephil.charting.charts.HorizontalBarChart
+        android:id="@+id/bar_chart"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:layout_height="@dimen/_330sdp"
+        android:layout_marginTop="@dimen/_24sdp" />
 </LinearLayout>

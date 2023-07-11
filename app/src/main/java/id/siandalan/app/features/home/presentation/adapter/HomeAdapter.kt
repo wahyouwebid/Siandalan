@@ -7,16 +7,16 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import id.siandalan.app.R
 import id.siandalan.app.databinding.AdapterApprovalBinding
-import id.siandalan.app.features.home.domain.model.DataHome
+import id.siandalan.app.features.home.domain.model.HomeItem
 import id.siandalan.app.features.home.presentation.model.Category
 
 class HomeAdapter(
-    private val action: (DataHome.DataApprovedItem) -> Unit
+    private val action: (HomeItem.DataApprovedItem) -> Unit
 ) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
-    private var data = ArrayList<DataHome.DataApprovedItem>()
+    private var data = ArrayList<HomeItem.DataApprovedItem>()
 
-    fun setData(itemList: List<DataHome.DataApprovedItem>?) {
+    fun setData(itemList: List<HomeItem.DataApprovedItem>?) {
         data.clear()
         itemList?.let { data.addAll(it) }
     }
@@ -39,7 +39,7 @@ class HomeAdapter(
 
     private fun byCategory(
         binding: AdapterApprovalBinding,
-        item: DataHome.DataApprovedItem
+        item: HomeItem.DataApprovedItem
     ) {
         with(binding){
             when (item.category) {

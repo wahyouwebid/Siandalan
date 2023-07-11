@@ -19,7 +19,7 @@ import id.siandalan.app.R
 import id.siandalan.app.common.utils.hide
 import id.siandalan.app.common.utils.show
 import id.siandalan.app.databinding.UikitChartBinding
-import id.siandalan.app.features.home.domain.model.DataHome
+import id.siandalan.app.features.home.domain.model.HomeItem
 
 
 class UIKitChart(
@@ -42,7 +42,7 @@ class UIKitChart(
         onListener()
     }
 
-    fun setDataPieChart(data: DataHome) = with(binding) {
+    fun setDataPieChart(data: HomeItem) = with(binding) {
         val pieEntries = listOf(
             PieEntry(data.request?.toFloat() ?: 0f, context.getString(R.string.title_dashboard_new_request)),
             PieEntry(data.process?.toFloat() ?: 0f, context.getString(R.string.title_dashboard_onprogress)),
@@ -71,7 +71,7 @@ class UIKitChart(
         pieChart.invalidate()
     }
 
-    fun setDataBarChart(data: DataHome) = with(binding) {
+    fun setDataBarChart(data: HomeItem) = with(binding) {
 
         val entries = ArrayList<BarEntry>()
         val labelSize = arrayOfNulls<String>(6)
@@ -99,8 +99,9 @@ class UIKitChart(
         val dataSet = BarDataSet(entries, "Bar Data")
         dataSet.setDrawValues(true)
         dataSet.valueTextColor = Color.BLACK
-        dataSet.valueTextSize = 20f
+        dataSet.valueTextSize = 12f
         dataSet.colors = getColor()
+
         val barData = BarData(dataSet)
         barData.barWidth = 0.9f
         barChart.data = barData

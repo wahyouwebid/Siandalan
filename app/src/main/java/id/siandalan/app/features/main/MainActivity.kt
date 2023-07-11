@@ -1,10 +1,11 @@
-package id.siandalan.app
+package id.siandalan.app.features.main
 
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import dagger.hilt.android.AndroidEntryPoint
+import id.siandalan.app.R
 import id.siandalan.app.common.base.BaseActivity
 import id.siandalan.app.common.utils.hide
 import id.siandalan.app.common.utils.show

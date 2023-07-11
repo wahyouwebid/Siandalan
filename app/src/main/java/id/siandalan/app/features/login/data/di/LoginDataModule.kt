@@ -1,4 +1,4 @@
-package id.siandalan.app.features.home.data.di
+package id.siandalan.app.features.login.data.di
 
 import dagger.Module
 import dagger.Provides
@@ -7,25 +7,28 @@ import dagger.hilt.components.SingletonComponent
 import id.siandalan.app.features.home.data.api.HomeApiService
 import id.siandalan.app.features.home.data.repository.HomeDataRepository
 import id.siandalan.app.features.home.domain.repository.HomeRepository
+import id.siandalan.app.features.login.data.api.LoginApiService
+import id.siandalan.app.features.login.data.repository.LoginDataRepository
+import id.siandalan.app.features.login.domain.repository.LoginRepository
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class HomeDataModule {
+class LoginDataModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): HomeApiService {
-        return retrofit.create(HomeApiService::class.java)
+    fun provideApiService(retrofit: Retrofit): LoginApiService {
+        return retrofit.create(LoginApiService::class.java)
     }
 
 
     @Provides
     fun provideDataRepository(
-        apiService: HomeApiService
-    ): HomeRepository {
-        return HomeDataRepository(apiService)
+        apiService: LoginApiService
+    ): LoginRepository {
+        return LoginDataRepository(apiService)
     }
 
 }

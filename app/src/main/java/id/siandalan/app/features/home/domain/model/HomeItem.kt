@@ -1,6 +1,6 @@
 package id.siandalan.app.features.home.domain.model
 
-data class DataHome(
+data class HomeItem(
     val request: Int?,
     val process: Int?,
     val draft: Int?,

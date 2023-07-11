@@ -8,7 +8,6 @@ import id.siandalan.app.features.home.domain.interactor.HomeInteractor
 import id.siandalan.app.features.home.domain.repository.HomeRepository
 import id.siandalan.app.features.home.domain.usecase.HomeUseCase
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -21,9 +20,5 @@ class HomeDomainModule {
     ): HomeUseCase {
         return HomeInteractor(repository, disposable)
     }
-
-    @Provides
-    @Singleton
-    fun provideDisposable(): CompositeDisposable = CompositeDisposable()
 
 }

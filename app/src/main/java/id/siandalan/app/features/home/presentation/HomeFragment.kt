@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import id.siandalan.app.R
 import id.siandalan.app.common.base.BaseFragment
+import id.siandalan.app.common.utils.hide
+import id.siandalan.app.common.utils.show
 import id.siandalan.app.databinding.FragmentHomeBinding
-import id.siandalan.app.features.home.domain.model.DataHome
+import id.siandalan.app.features.home.domain.model.HomeItem
 import id.siandalan.app.features.home.domain.state.HomeResultState
 import id.siandalan.app.features.home.presentation.adapter.HomeAdapter
 
@@ -29,68 +31,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun setupViewModel() {
         viewModel.getDataHome()
-        val data = DataHome(
-            32, 10,41,53,23,60, 30,
-            listOf(
-                DataHome.DataApprovedItem(
-                    "ANDL-202305008",
-                    "ANDL-202305008",
-                    "PT NANKAI INDONESIA",
-                    "Pembangunan Stasiun Bahan Bakar Umum (SPBU) Dodo Mini",
-                    "Rendah",
-                    "03-05-2023",
-                ),
-
-                DataHome.DataApprovedItem(
-                    "ANDL-202305035",
-                    "ANDL-202305035",
-                    "PT MEDIKALOKA ARCAMANIK",
-                    "Pengembangan Rumah Sakit Hermina Arcamanik",
-                    "Sedang",
-                    "04-05-2023",
-                ),
-
-                DataHome.DataApprovedItem(
-                    "ANDL-202304213",
-                    "ANDL-202304213",
-                    "PT. DOK PANTI LAMONGAN",
-                    "Kegiatan Pengembangan Reparasi Kapal, Perahu dan Bangunan Terapung",
-                    "Tinggi",
-                    "28-04-2023",
-                ),
-
-                DataHome.DataApprovedItem(
-                    "ANDL-202304213",
-                    "ANDL-202304213",
-                    "PT. DOK PANTI LAMONGAN",
-                    "Kegiatan Pengembangan Reparasi Kapal, Perahu dan Bangunan Terapung",
-                    "Tinggi",
-                    "28-04-2023",
-                ),
-
-                DataHome.DataApprovedItem(
-                    "ANDL-202304213",
-                    "ANDL-202304213",
-                    "PT. DOK PANTI LAMONGAN",
-                    "Kegiatan Pengembangan Reparasi Kapal, Perahu dan Bangunan Terapung",
-                    "Tinggi",
-                    "28-04-2023",
-                ),
-            )
-        )
         viewModel.home.observe(viewLifecycleOwner) { state ->
             when(state) {
-                is HomeResultState.Success -> {}
-                is HomeResultState.Loading -> {}
-                is HomeResultState.Error -> {
-
-                }
+                is HomeResultState.Success -> onSuccess(state.data)
+                is HomeResultState.Loading -> onLoading(true)
+                is HomeResultState.Error -> onError(state.error)
             }
         }
-        onSuccess(data)
     }
 
-    private fun onSuccess(data: DataHome) = with(binding) {
+    private fun onSuccess(data: HomeItem) = with(binding) {
         uikitDashboard.setNewRequest(data.request.toString())
         uikitDashboard.setProgress(data.process.toString())
         uikitDashboard.setVerified(data.approved.toString())
@@ -103,6 +53,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         uikitChart.setDataPieChart(data)
         uikitChart.setDataBarChart(data)
+        uikitError.hide()
+        onLoading(false)
+    }
+
+    private fun onLoading(isLoading: Boolean) = with(binding){
+        uikitLoading.setLoading(isLoading)
+        if (isLoading) uikitError.hide()
+    }
+
+    private fun onError(error: Throwable) = with(binding){
+        uikitError.show()
+        uikitError.setError(error.message.toString()) {
+            viewModel.getDataHome()
+        }
+        onLoading(false)
     }
 
     private fun setupAdapter() = with(binding) {

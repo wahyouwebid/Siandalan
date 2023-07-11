@@ -4,7 +4,7 @@ package id.siandalan.app.features.home.data.model
 import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
-import id.siandalan.app.features.home.domain.model.DataHome
+import id.siandalan.app.features.home.domain.model.HomeItem
 
 @Keep
 data class DataHomeResponse(
@@ -12,8 +12,8 @@ data class DataHomeResponse(
     @Expose
     val total: Total?
 ){
-    fun toDomain(): DataHome {
-        return DataHome(
+    fun toDomain(): HomeItem {
+        return HomeItem(
             request = total?.request,
             process = total?.process,
             draft = total?.draft,
@@ -22,13 +22,13 @@ data class DataHomeResponse(
             finish = total?.finish,
             long = total?.long,
             dataApproved = this.total?.dataApproved?.map { dataApproved ->
-                DataHome.DataApprovedItem(
+                HomeItem.DataApprovedItem(
                     id = dataApproved?.id,
                     no = dataApproved?.noAndalalin,
                     name = dataApproved?.namaPerseroan,
                     projectName = dataApproved?.projectName,
-                    category = dataApproved?.category,
-                    dateProcess = dataApproved?.paymentDate
+                    category = dataApproved?.classification,
+                    dateProcess = dataApproved?.updatedAt
                 )
             }
         )

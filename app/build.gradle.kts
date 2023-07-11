@@ -61,6 +61,7 @@ dependencies {
     implementation(Dependencies.ANDROIDX_FRAGENT_KTX)
     implementation(Dependencies.MATERIAL)
     implementation(Dependencies.MPACHART)
+    implementation(Dependencies.SHIMMER)
 
     // Navigation Component
     implementation(Dependencies.NAVIGATION_FRAGMENT)
@@ -91,4 +92,9 @@ dependencies {
     androidTestImplementation(Dependencies.ANDROIDX_JUNIT)
     androidTestImplementation(Dependencies.ESPRESSO)
 
+}
+android {
+    buildFeatures {
+        viewBinding = true
+    }
 }

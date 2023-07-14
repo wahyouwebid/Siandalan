@@ -41,7 +41,6 @@ class LoginViewModel @Inject constructor(
         )
 
         if (!hasError.any { !it.successful }) {
-            Log.d("TOKEN_FIREBASE", tokenFirebase)
             useCase.login(username, password) {
                 login.postValue(it)
             }

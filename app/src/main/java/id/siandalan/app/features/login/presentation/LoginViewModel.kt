@@ -1,8 +1,10 @@
 package id.siandalan.app.features.login.presentation
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import id.siandalan.app.common.firebase.FirebaseUtils
 import id.siandalan.app.common.utils.hide
 import id.siandalan.app.common.utils.show
 import id.siandalan.app.databinding.ActivityLoginBinding
@@ -29,7 +31,7 @@ class LoginViewModel @Inject constructor(
         username: String,
         password: String
     ) {
-
+        val tokenFirebase = useCase.getTokenFirebase()
         val validateUsername = validateUsername(binding, username)
         val validatePassword = validatePassword(binding, password)
 
@@ -39,6 +41,7 @@ class LoginViewModel @Inject constructor(
         )
 
         if (!hasError.any { !it.successful }) {
+            Log.d("TOKEN_FIREBASE", tokenFirebase)
             useCase.login(username, password) {
                 login.postValue(it)
             }

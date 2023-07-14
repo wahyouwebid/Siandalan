@@ -7,4 +7,6 @@ interface LoginRepository {
 
     fun login(username: String, password: String): Observable<LoginItem>
 
+    fun getTokenFirebase(): String
+
 }

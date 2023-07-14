@@ -36,9 +36,13 @@ object Dependencies {
     const val RX_ANDROID = "io.reactivex.rxjava3:rxandroid:${Versions.RX_ANDROID}"
     const val RX_JAVA = "io.reactivex.rxjava3:rxjava:${Versions.RX_JAVA}"
     const val RX_BINDING = "com.jakewharton.rxbinding3:rxbinding:${Versions.RX_BINDING}"
-
     /** Security **/
     const val SECURITY = "androidx.security:security-crypto:${Versions.SECURITY}"
+
+
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
+    const val FIREBASE_ANALYTIC = "com.google.firebase:firebase-analytics-ktx"
+    const val FIREBASE_MESSAGING = "com.google.firebase:firebase-messaging-ktx"
 
     /** Testing **/
     const val ANDROIDX_JUNIT = "androidx.test.ext:junit:${Versions.ANDROIDX_JUNIT}"

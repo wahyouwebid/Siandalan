@@ -8,6 +8,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
+    id("com.google.gms.google-services")
 }
 
 @Suppress("UnstableApiUsage")
@@ -18,6 +19,7 @@ android {
         namespace = AndroidConfig.APP_NAME_SPACE
         minSdk = AndroidConfig.MIN_SDK
         versionCode = AndroidConfig.VERSION_CODE
+        versionName = AndroidConfig.VERSION_NAME
         testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENT_RUNNER
     }
 
@@ -50,8 +52,6 @@ android {
     testOptions {
         unitTests.isIncludeAndroidResources = true
     }
-
-
 }
 
 dependencies {
@@ -91,15 +91,15 @@ dependencies {
     //Security
     implementation(Dependencies.SECURITY)
 
+    //Firebase
+    implementation(platform(Dependencies.FIREBASE_BOM))
+    implementation(Dependencies.FIREBASE_ANALYTIC)
+    implementation(Dependencies.FIREBASE_MESSAGING)
+
     //Testing
     testImplementation(Dependencies.JUNIT)
     testImplementation(Dependencies.MOCKITO)
     androidTestImplementation(Dependencies.ANDROIDX_JUNIT)
     androidTestImplementation(Dependencies.ESPRESSO)
 
-}
-android {
-    buildFeatures {
-        viewBinding = true
-    }
 }

@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import id.siandalan.app.features.main.MainActivity
 import id.siandalan.app.common.base.BaseActivity
+import id.siandalan.app.common.firebase.FirebaseUtils
 import id.siandalan.app.common.utils.hide
 import id.siandalan.app.common.utils.show
 import id.siandalan.app.databinding.ActivityLoginBinding
@@ -19,6 +20,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     private val viewModel: LoginViewModel by viewModels()
 
     override fun setupView(savedInstanceState: Bundle?) = with(binding){
+        FirebaseUtils.generateTokenFirebase().toString()
+
         etUsername.doOnTextChanged { text, _, _, _ ->
             viewModel.validateUsername(binding, text.toString())
         }

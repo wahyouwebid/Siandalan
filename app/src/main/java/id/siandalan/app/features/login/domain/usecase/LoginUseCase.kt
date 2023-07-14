@@ -11,7 +11,10 @@ interface LoginUseCase {
         callback: (data: LoginResultState) -> Unit
     )
 
+    fun getTokenFirebase(): String
+
     fun validateUserName(username: String): ValidationResult
+
     fun validatePassword(password: String): ValidationResult
 
     fun clearDisposable()

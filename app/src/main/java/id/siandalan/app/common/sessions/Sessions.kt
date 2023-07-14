@@ -17,6 +17,7 @@ class Sessions constructor(
         const val prefName = "id.co.cimbniaga.mobile.android_preferences"
         const val keyAlias: String = "_androidx_security_master_key_"
         const val secretSharedPref: String = "secret_shared_prefs"
+        const val tokenFirebase = "tokenFirebase"
     }
 
     private var editor: SharedPreferences.Editor? = null

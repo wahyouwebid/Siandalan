@@ -25,4 +25,5 @@ object Versions {
     const val MPACHART = "v3.1.0"
     const val SHIMMER = "0.5.0"
     const val SECURITY = "1.1.0-alpha01"
+    const val FIREBASE_BOM = "32.1.1"
 }

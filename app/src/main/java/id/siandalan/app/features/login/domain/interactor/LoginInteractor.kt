@@ -29,6 +29,10 @@ class LoginInteractor(
             .let { disposable.add(it) }
     }
 
+    override fun getTokenFirebase(): String {
+        return repository.getTokenFirebase()
+    }
+
     override fun validateUserName(username: String): ValidationResult {
         return when {
             username.isEmpty() -> {

@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import id.siandalan.app.common.sessions.Sessions
 import id.siandalan.app.features.login.data.api.LoginApiService
 import id.siandalan.app.features.login.data.repository.LoginDataRepository
 import id.siandalan.app.features.login.domain.repository.LoginRepository
@@ -23,9 +24,10 @@ class LoginDataModule {
 
     @Provides
     fun provideDataRepository(
-        apiService: LoginApiService
+        apiService: LoginApiService,
+        sessions: Sessions
     ): LoginRepository {
-        return LoginDataRepository(apiService)
+        return LoginDataRepository(apiService, sessions)
     }
 
 }

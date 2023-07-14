@@ -4,9 +4,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import id.siandalan.app.features.home.data.api.HomeApiService
-import id.siandalan.app.features.home.data.repository.HomeDataRepository
-import id.siandalan.app.features.home.domain.repository.HomeRepository
 import id.siandalan.app.features.login.data.api.LoginApiService
 import id.siandalan.app.features.login.data.repository.LoginDataRepository
 import id.siandalan.app.features.login.domain.repository.LoginRepository

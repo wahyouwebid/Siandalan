@@ -26,12 +26,14 @@ android {
             isMinifyEnabled = false
             proguardFiles (getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             buildConfigField("String", "baseUrl", "\"http://116.0.4.24:808/\"")
+            buildConfigField("String", "webUrl", "\"http://116.0.4.24:808/siandalan2022/public/\"")
         }
 
         named(AndroidBuildType.RELEASE) {
             isMinifyEnabled = true
             proguardFiles (getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             buildConfigField("String", "baseUrl", "\"http://116.0.4.24:808/\"")
+            buildConfigField("String", "webUrl", "\"http://116.0.4.24:808/siandalan2022/public/\"")
         }
     }
 
@@ -85,6 +87,9 @@ dependencies {
     implementation(Dependencies.RX_JAVA)
     implementation(Dependencies.RX_ANDROID)
     implementation(Dependencies.RX_BINDING)
+
+    //Security
+    implementation(Dependencies.SECURITY)
 
     //Testing
     testImplementation(Dependencies.JUNIT)

@@ -63,10 +63,11 @@
             android:fontFamily="@font/poppins_regular"
             android:paddingStart="@dimen/_16sdp"
             android:paddingEnd="@dimen/_16sdp"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_12ssp"
             android:paddingTop="@dimen/_5sdp"
+            android:textColor="@color/white"
             android:paddingBottom="@dimen/_3sdp"
-            android:background="@drawable/bg_rounded_low"
+            android:background="@drawable/bg_rounded_dashboard_5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 

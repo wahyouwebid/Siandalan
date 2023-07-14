@@ -37,6 +37,9 @@ object Dependencies {
     const val RX_JAVA = "io.reactivex.rxjava3:rxjava:${Versions.RX_JAVA}"
     const val RX_BINDING = "com.jakewharton.rxbinding3:rxbinding:${Versions.RX_BINDING}"
 
+    /** Security **/
+    const val SECURITY = "androidx.security:security-crypto:${Versions.SECURITY}"
+
     /** Testing **/
     const val ANDROIDX_JUNIT = "androidx.test.ext:junit:${Versions.ANDROIDX_JUNIT}"
     const val ESPRESSO = "androidx.test.espresso:espresso-core:${Versions.ANDROID_TEST_ESPRESSO}"

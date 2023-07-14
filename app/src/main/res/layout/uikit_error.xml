@@ -29,8 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_8sdp"
             android:fontFamily="@font/poppins_regular"
-            android:textSize="@dimen/_16ssp"
+            android:textSize="@dimen/_14ssp"
             tools:text="Error"/>
 
         <androidx.appcompat.widget.AppCompatButton

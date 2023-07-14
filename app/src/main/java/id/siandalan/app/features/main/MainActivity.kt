@@ -11,7 +11,6 @@ import id.siandalan.app.common.utils.hide
 import id.siandalan.app.common.utils.show
 import id.siandalan.app.databinding.ActivityMainBinding
 
-
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
@@ -19,6 +18,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_main) as NavHostFragment
         NavigationUI.setupWithNavController(binding.bottomNavigation, navHostFragment.navController)
         onDestinationChanged(navHostFragment.navController)
+
+        setupToolbar()
+    }
+
+    private fun setupToolbar(){
+        binding.uikitToolbar.setToolbar(getString(R.string.app_name))
     }
 
     private fun onDestinationChanged(navController: NavController){
@@ -26,6 +31,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             when (destination.id) {
                 R.id.navigation_home -> showNavigation()
                 R.id.navigation_request -> showNavigation()
+                R.id.navigation_profile -> showNavigation()
                 else -> hideNavigation()
             }
         }
@@ -34,15 +40,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private fun showNavigation() = with(binding){
         bottomNavigation.show()
         bottomAppBar.show()
+        uikitToolbar.show()
     }
 
     private fun hideNavigation() = with(binding) {
         bottomNavigation.hide()
         bottomAppBar.hide()
+        uikitToolbar.hide()
     }
 
-    override fun setupViewModel() {
-
-    }
+    override fun setupViewModel() {}
 
 }

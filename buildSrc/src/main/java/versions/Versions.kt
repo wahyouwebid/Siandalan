@@ -24,4 +24,5 @@ object Versions {
     const val MOCKITO = "4.0.0"
     const val MPACHART = "v3.1.0"
     const val SHIMMER = "0.5.0"
+    const val SECURITY = "1.1.0-alpha01"
 }

@@ -18,7 +18,45 @@ class UIKitLoading(
         LayoutInflater.from(context), this, true
     )
 
-    fun setLoading(isLoading: Boolean) = with(binding) {
-        if (isLoading) root.show() else root.hide()
+    fun setLoadingHome(isLoading: Boolean) = with(binding) {
+        if (isLoading) {
+            root.show()
+            shimmerHome.show()
+            shimmerRequest.hide()
+            loadingProgress.hide()
+        } else {
+            root.hide()
+            shimmerHome.hide()
+            shimmerRequest.hide()
+            loadingProgress.hide()
+        }
+    }
+
+    fun setLoadingApproval(isLoading: Boolean) = with(binding) {
+        if (isLoading) {
+            root.show()
+            shimmerHome.hide()
+            shimmerRequest.show()
+            loadingProgress.hide()
+        } else {
+            root.hide()
+            shimmerHome.hide()
+            shimmerRequest.hide()
+            loadingProgress.hide()
+        }
+    }
+
+    fun setLoadingProgress(isLoading: Boolean) = with(binding){
+        if (isLoading) {
+            root.show()
+            shimmerHome.hide()
+            shimmerRequest.hide()
+            loadingProgress.show()
+        } else {
+            root.hide()
+            shimmerHome.hide()
+            shimmerRequest.hide()
+            loadingProgress.hide()
+        }
     }
 }

@@ -3,22 +3,22 @@ package id.siandalan.app.features.request.presentation
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.siandalan.app.features.home.domain.state.HomeResultState
-import id.siandalan.app.features.home.domain.usecase.HomeUseCase
+import id.siandalan.app.features.request.domain.state.RequestResultState
+import id.siandalan.app.features.request.domain.usecase.RequestUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class RequestViewModel @Inject constructor(
-    private val useCase: HomeUseCase
+    private val useCase: RequestUseCase
 ) : ViewModel() {
 
-    val home: MutableLiveData<HomeResultState> by lazy {
+    val request: MutableLiveData<RequestResultState> by lazy {
         MutableLiveData()
     }
 
-    fun getDataHome() {
-        useCase.getDataHome {
-            home.postValue(it)
+    fun getDataRequest() {
+        useCase.getDataRequest {
+            request.postValue(it)
         }
     }
 }

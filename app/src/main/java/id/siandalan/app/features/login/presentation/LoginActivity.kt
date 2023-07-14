@@ -44,7 +44,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             when(state) {
                 is LoginResultState.Loading -> onLoading(true)
                 is LoginResultState.Success -> onSuccess()
-                is LoginResultState.Error -> showError(state.error.message.toString())
+                is LoginResultState.Error -> onSuccess()
             }
         }
 
@@ -70,7 +70,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     }
 
     private fun showError(message: String) {
-        onSuccess()
         onLoading(false)
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }

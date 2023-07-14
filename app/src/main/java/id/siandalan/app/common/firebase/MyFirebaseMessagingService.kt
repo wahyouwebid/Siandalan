@@ -54,11 +54,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val b = NotificationCompat.Builder(
+        val notificationBuilder = NotificationCompat.Builder(
             applicationContext,
             getString(R.string.notification_channel_id)
         )
-        return b.setTicker(remoteMessage.data["title"])
+        return notificationBuilder.setTicker(remoteMessage.data["title"])
             .setWhen(System.currentTimeMillis())
             .setAutoCancel(true)
             .setContentTitle(remoteMessage.notification?.title.toString())

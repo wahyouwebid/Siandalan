@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import id.siandalan.app.R
-import id.siandalan.app.common.utils.dateFormat
 import id.siandalan.app.common.utils.dateFormatComplete
 import id.siandalan.app.databinding.AdapterHomeApprovalBinding
 import id.siandalan.app.features.home.domain.model.HomeItem

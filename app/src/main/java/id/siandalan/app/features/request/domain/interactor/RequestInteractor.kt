@@ -1,7 +1,8 @@
 package id.siandalan.app.features.request.domain.interactor
 
+import id.siandalan.app.common.base.BaseResultState
+import id.siandalan.app.features.request.domain.model.RequestItem
 import id.siandalan.app.features.request.domain.repository.RequestRepository
-import id.siandalan.app.features.request.domain.state.RequestResultState
 import id.siandalan.app.features.request.domain.usecase.RequestUseCase
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -12,13 +13,13 @@ class RequestInteractor(
     private val disposable: CompositeDisposable,
 ): RequestUseCase {
 
-    override fun getDataRequest(callback: (data: RequestResultState) -> Unit) {
+    override fun getDataRequest(callback: (data: BaseResultState<RequestItem>) -> Unit) {
         repository.getDataRequest()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .map<RequestResultState> { RequestResultState.Success(it) }
-            .onErrorReturn { RequestResultState.Error(it) }
-            .startWithItem(RequestResultState.Loading)
+            .map<BaseResultState<RequestItem>> { BaseResultState.Success(it) }
+            .onErrorReturn { BaseResultState.Error(it) }
+            .startWithItem(BaseResultState.Loading)
             .subscribe(callback)
             .let { disposable.add(it) }
     }

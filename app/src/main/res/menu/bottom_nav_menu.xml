@@ -11,9 +11,9 @@
         android:icon="@drawable/menu_approval_selector"
         android:title="@string/title_dashboard" />
 
-    <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/menu_profile_selector"
-        android:title="@string/title_profile" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_profile"-->
+<!--        android:icon="@drawable/menu_profile_selector"-->
+<!--        android:title="@string/title_profile" />-->
 
 </menu>

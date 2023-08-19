@@ -1,9 +1,9 @@
 package id.siandalan.app.features.home.data.model
 
 
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import id.siandalan.app.features.home.domain.model.HomeItem
 
 @Keep
@@ -21,7 +21,8 @@ data class DataHomeResponse(
             approved = total?.approved,
             finish = total?.finish,
             long = total?.long,
-            dataApproved = this.total?.dataApproved?.map { dataApproved ->
+            draftApprove = total?.drafted?.plus(total.approved ?: 0),
+            dataApproved = this.total?.dataDrafted?.map { dataApproved ->
                 HomeItem.DataApprovedItem(
                     id = dataApproved?.id,
                     no = dataApproved?.noAndalalin,

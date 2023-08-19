@@ -7,4 +7,9 @@ interface RequestRepository {
 
     fun getDataRequest(): Observable<RequestItem>
 
+    fun getToken(): String
+
+    fun getModule(): String
+
+    fun getUsername(): String
 }

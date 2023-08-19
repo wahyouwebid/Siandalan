@@ -7,7 +7,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import id.siandalan.app.common.utils.hide
 import id.siandalan.app.common.utils.show
 import id.siandalan.app.databinding.UikitLoadingBinding
-import id.siandalan.app.databinding.UikitToolbarBinding
 
 class UIKitLoading(
     context: Context,

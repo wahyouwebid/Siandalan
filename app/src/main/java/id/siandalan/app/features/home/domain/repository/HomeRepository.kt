@@ -7,4 +7,9 @@ interface HomeRepository {
 
     fun getDataHome(): Observable<HomeItem>
 
+    fun getToken(): String
+
+    fun getModule(): String
+
+    fun getUsername(): String
 }

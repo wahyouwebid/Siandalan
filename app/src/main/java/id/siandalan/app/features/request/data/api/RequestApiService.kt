@@ -2,11 +2,18 @@ package id.siandalan.app.features.request.data.api
 
 import id.siandalan.app.features.request.data.model.DataRequestResponse
 import io.reactivex.rxjava3.core.Observable
-import retrofit2.http.GET
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.Header
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface RequestApiService {
-
-    @GET("siandalan-pengembangan/modules/bptj/public/api/Version1/Api_andalalin")
-    fun getRequestData(): Observable<DataRequestResponse>
-
+    @FormUrlEncoded
+    @POST("modules/{module}/public/Api/Android/Api_andalalin")
+    fun getRequestData(
+        @Header("Authorization") token: String,
+        @Path("module") module: String,
+        @Field("username") username: String
+    ): Observable<DataRequestResponse>
 }

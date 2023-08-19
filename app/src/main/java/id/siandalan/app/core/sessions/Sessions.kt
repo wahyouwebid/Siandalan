@@ -1,4 +1,4 @@
-package id.siandalan.app.common.sessions
+package id.siandalan.app.core.sessions
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -17,7 +17,20 @@ class Sessions constructor(
         const val prefName = "id.co.cimbniaga.mobile.android_preferences"
         const val keyAlias: String = "_androidx_security_master_key_"
         const val secretSharedPref: String = "secret_shared_prefs"
-        const val tokenFirebase = "tokenFirebase"
+        const val id = "id"
+        const val idRole = "id_role"
+        const val username = "username"
+        const val name = "name"
+        const val module = "module"
+        const val aksesProvinsi = "akses_provinsi"
+        const val aksesKota = "akses_kota"
+        const val position = "position"
+        const val rank = "rank"
+        const val nik = "nik"
+        const val nip = "nip"
+        const val accessToken = "access_token"
+        const val tokenFirebase = "token_firebase"
+        const val isLogin = "is_login"
     }
 
     private var editor: SharedPreferences.Editor? = null
@@ -48,7 +61,7 @@ class Sessions constructor(
 
     fun batch() = pref
 
-    fun putString(key: String, value: String) {
+    fun putString(key: String, value: String?) {
         editor!!.putString(key, value)
         editor!!.commit()
     }

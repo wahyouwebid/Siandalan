@@ -6,18 +6,25 @@ import androidx.activity.viewModels
 import androidx.core.widget.doOnTextChanged
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import id.siandalan.app.features.main.MainActivity
+import id.siandalan.app.R
 import id.siandalan.app.common.base.BaseActivity
-import id.siandalan.app.common.firebase.FirebaseUtils
+import id.siandalan.app.common.base.BaseResultState
+import id.siandalan.app.common.utils.convertToCamelCase
 import id.siandalan.app.common.utils.hide
 import id.siandalan.app.common.utils.show
+import id.siandalan.app.core.firebase.FirebaseUtils
 import id.siandalan.app.databinding.ActivityLoginBinding
-import id.siandalan.app.features.login.domain.state.LoginResultState
+import id.siandalan.app.features.login.domain.model.ModuleItem
+import id.siandalan.app.features.login.domain.model.UserItem
+import id.siandalan.app.features.main.MainActivity
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate) {
 
     private val viewModel: LoginViewModel by viewModels()
+
+    private var module: String? = ""
+    private var moduleIsShown: Boolean = true
 
     override fun setupView(savedInstanceState: Bundle?) = with(binding){
         FirebaseUtils.generateTokenFirebase().toString()
@@ -33,24 +40,76 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         btnLogin.setOnClickListener {
             viewModel.login(
                 binding,
+                moduleIsShown,
+                viewModel.getModuleName(),
                 etUsername.text.toString(),
-                etPassword.text.toString()
+                etPassword.text.toString(),
             )
+        }
+
+        etUsername.setText("DEVAWAL")
+        etPassword.setText("123456")
+
+        ivSetting.setOnClickListener {
+            showModule(true)
         }
     }
 
     override fun setupViewModel() {
         viewModel.login.observe(this) { state ->
             when(state) {
-                is LoginResultState.Loading -> onLoading(true)
-                is LoginResultState.Success -> onSuccess()
-                is LoginResultState.Error -> onSuccess()
+                is BaseResultState.Loading -> onLoading(true)
+                is BaseResultState.Success -> onSuccessLogin(state.data)
+                is BaseResultState.Error -> showError(state.error.message)
+            }
+        }
+
+        viewModel.module.observe(this) { state ->
+            when(state) {
+                is BaseResultState.Loading -> onLoading(true)
+                is BaseResultState.Success -> onSuccessModule(state.data)
+                is BaseResultState.Error ->  showError(state.error.message)
             }
         }
 
         viewModel.errorMessage.observe(this) {
             showError(it)
         }
+
+        viewModel.moduleSelected.observe(this) {
+            setModuleName(it)
+        }
+
+        if (viewModel.getModuleName().isNullOrEmpty()) {
+            binding.tvModule.text = getString(R.string.title_choose_module)
+            showModule(true)
+        } else {
+            binding.tvModule.text = viewModel.getModuleName()
+            showModule(false)
+        }
+
+        viewModel.getModule()
+    }
+
+    private fun setModuleName(data: ModuleItem) = with(binding) {
+        tvModule.text = data.nama?.convertToCamelCase()
+        module = data.nama.toString()
+        viewModel.validateModule(binding, data.nama)
+    }
+
+    private fun onSuccessModule(data: List<ModuleItem>) {
+        onLoading(false)
+        viewModel.setModuleList(data)
+        binding.tvModule.setOnClickListener {
+            ModuleBottomSheet().show(this.supportFragmentManager, "")
+        }
+    }
+
+    private fun onSuccessLogin(data: UserItem) {
+        viewModel.setUser(data)
+        onLoading(false)
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     private fun onLoading(isLoading: Boolean) = with(binding){
@@ -58,19 +117,28 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         if (isLoading) {
             uikitLoading.show()
             btnLogin.hide()
+            btnLogin.isEnabled = false
         } else {
             uikitLoading.hide()
             btnLogin.show()
+            btnLogin.isEnabled = true
         }
     }
-    private fun onSuccess() {
+
+    private fun showError(message: String?) {
         onLoading(false)
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
+        message?.let { Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show() }
     }
 
-    private fun showError(message: String) {
-        onLoading(false)
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+    private fun showModule(isShown: Boolean) = with(binding){
+        if (isShown) {
+            moduleIsShown = true
+            tvModuleLabel.show()
+            tvModule.show()
+        } else {
+            moduleIsShown = false
+            tvModuleLabel.hide()
+            tvModule.hide()
+        }
     }
 }

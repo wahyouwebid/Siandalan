@@ -36,3 +36,15 @@ fun String.dateFormat(
     val date = SimpleDateFormat(sourcePattern, locale).parse(this)!!
     return SimpleDateFormat(targetPattern, Locale.getDefault()).format(date)
 }
+
+fun String.convertToCamelCase(): String {
+    val words = this.split("-")
+    val camelCaseWords = mutableListOf<String>()
+
+    for (word in words) {
+        camelCaseWords.add(word.lowercase(Locale.ROOT)
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() })
+    }
+
+    return camelCaseWords.joinToString(" ")
+}

@@ -31,6 +31,7 @@ object Dependencies {
     const val MATERIAL = "com.google.android.material:material:${Versions.ANDROID_MATERIAL}"
     const val MPACHART = "com.github.PhilJay:MPAndroidChart:${Versions.MPACHART}"
     const val SHIMMER = "com.facebook.shimmer:shimmer:${Versions.SHIMMER}"
+    const val EXPANDABLE = "com.github.cachapa:ExpandableLayout:${Versions.EXPANDABLE}"
 
     /** RxJava **/
     const val RX_ANDROID = "io.reactivex.rxjava3:rxandroid:${Versions.RX_ANDROID}"

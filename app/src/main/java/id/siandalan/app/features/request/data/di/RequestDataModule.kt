@@ -4,9 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import id.siandalan.app.features.home.data.api.HomeApiService
-import id.siandalan.app.features.home.data.repository.HomeDataRepository
-import id.siandalan.app.features.home.domain.repository.HomeRepository
+import id.siandalan.app.core.sessions.Sessions
 import id.siandalan.app.features.request.data.api.RequestApiService
 import id.siandalan.app.features.request.data.repository.RequestDataRepository
 import id.siandalan.app.features.request.domain.repository.RequestRepository
@@ -26,9 +24,10 @@ class RequestDataModule {
 
     @Provides
     fun provideDataRepository(
-        apiService: RequestApiService
+        apiService: RequestApiService,
+        sessions: Sessions
     ): RequestRepository {
-        return RequestDataRepository(apiService)
+        return RequestDataRepository(apiService, sessions)
     }
 
 }

@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import id.siandalan.app.R
 import id.siandalan.app.common.base.BaseFragment
+import id.siandalan.app.common.base.BaseResultState
 import id.siandalan.app.common.navigation.Navigation
 import id.siandalan.app.common.utils.hide
 import id.siandalan.app.common.utils.show
 import id.siandalan.app.databinding.FragmentRequestBinding
 import id.siandalan.app.features.request.domain.model.RequestItem
-import id.siandalan.app.features.request.domain.state.RequestResultState
-import id.siandalan.app.features.request.presentation.adapter.RequestAdapter
+import id.siandalan.app.features.request.presentation.adapter.NewRequestAdapter
 
 @AndroidEntryPoint
 class RequestFragment : BaseFragment<FragmentRequestBinding>(FragmentRequestBinding::inflate) {
@@ -25,8 +25,8 @@ class RequestFragment : BaseFragment<FragmentRequestBinding>(FragmentRequestBind
         activity?.findNavController(R.id.nav_host_main)
     }
 
-    private val requestAdapter: RequestAdapter by lazy {
-        RequestAdapter { navigation?.navigate(Navigation.REQUEST_TO_DETAIL.id) }
+    private val requestAdapter: NewRequestAdapter by lazy {
+        NewRequestAdapter { navigation?.navigate(Navigation.REQUEST_TO_DETAIL.id) }
     }
 
     override fun setupView(savedInstanceState: Bundle?) {
@@ -37,9 +37,9 @@ class RequestFragment : BaseFragment<FragmentRequestBinding>(FragmentRequestBind
         viewModel.getDataRequest()
         viewModel.request.observe(viewLifecycleOwner) { state ->
             when(state) {
-                is RequestResultState.Success -> onSuccess(state.data)
-                is RequestResultState.Loading -> onLoading(true)
-                is RequestResultState.Error -> onError(state.error)
+                is BaseResultState.Success -> onSuccess(state.data)
+                is BaseResultState.Loading -> onLoading(true)
+                is BaseResultState.Error -> onError(state.error)
             }
         }
     }
@@ -59,7 +59,7 @@ class RequestFragment : BaseFragment<FragmentRequestBinding>(FragmentRequestBind
 
     private fun onError(error: Throwable) = with(binding){
         uikitError.show()
-        uikitError.setError(error.message.toString()) {
+        uikitError.setError(error) {
             viewModel.getDataRequest()
         }
         onLoading(false)

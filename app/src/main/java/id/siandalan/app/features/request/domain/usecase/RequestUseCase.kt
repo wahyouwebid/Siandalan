@@ -1,10 +1,11 @@
 package id.siandalan.app.features.request.domain.usecase
 
-import id.siandalan.app.features.request.domain.state.RequestResultState
+import id.siandalan.app.common.base.BaseResultState
+import id.siandalan.app.features.request.domain.model.RequestItem
 
 interface RequestUseCase {
 
-    fun getDataRequest(callback: (data: RequestResultState) -> Unit)
+    fun getDataRequest(callback: (data: BaseResultState<RequestItem>) -> Unit)
 
     fun clearDisposable()
 }

@@ -6,7 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import id.siandalan.app.common.sessions.Sessions
+import id.siandalan.app.core.sessions.Sessions
 import javax.inject.Singleton
 
 @Module

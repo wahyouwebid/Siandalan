@@ -1,4 +1,4 @@
-package id.siandalan.app.common.firebase
+package id.siandalan.app.core.firebase
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -11,7 +11,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import id.siandalan.app.R
 import id.siandalan.app.SiandalanApp.Companion.getContext
-import id.siandalan.app.common.sessions.Sessions
+import id.siandalan.app.core.sessions.Sessions
 import id.siandalan.app.features.main.MainActivity
 import java.util.Date
 

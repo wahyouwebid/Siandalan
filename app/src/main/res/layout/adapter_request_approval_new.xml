@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:layout_marginBottom="@dimen/_10sdp"
+    android:layout_marginStart="@dimen/_24sdp"
+    android:layout_marginEnd="@dimen/_24sdp"
+    app:cardCornerRadius="@dimen/_16sdp"
+    app:cardElevation="@dimen/_6sdp"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_16sdp">
+
+        <TextView
+            android:id="@+id/tv_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="No: ANDL-202303089"
+            android:textSize="@dimen/_16ssp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/poppins_light"
+            android:textColor="@color/colorTextSecondary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/_18ssp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_category"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_category"
+            tools:text="Ujang Wahyu" />
+
+        <TextView
+            android:id="@+id/tv_project_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Pengembangan Pelabuhan Perikanan Nusantara Kejawanan"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:textSize="@dimen/_13ssp"
+            android:fontFamily="@font/poppins_light"
+            android:textColor="@color/colorTextSecondary"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Sedang"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:textSize="@dimen/_12ssp"
+            android:paddingTop="@dimen/_5sdp"
+            android:textColor="@color/white"
+            android:paddingBottom="@dimen/_3sdp"
+            android:background="@drawable/bg_rounded_dashboard_5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="0.8dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/grey2"
+            app:layout_constraintEnd_toEndOf="@+id/tv_category"
+            app:layout_constraintStart_toStartOf="@+id/tv_project_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_project_name" />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/el_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            app:el_duration="100"
+            app:el_expanded="false"
+            app:el_parallax="0.5"
+            app:layout_constraintTop_toBottomOf="@+id/view">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_detail_status_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_status"
+                    android:textSize="@dimen/_13ssp"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Pengajuan Baru"
+                    android:textSize="@dimen/_13ssp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_4ssp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@drawable/bg_rounded_dashboard_7"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_no_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_no_request"
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="ANDL-202308006"
+                    android:textSize="@dimen/_13ssp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_4ssp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@drawable/bg_rounded_dashboard_7"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_name_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_name_request"
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="PT. ADHI PERSADA BETON"
+                    android:textSize="@dimen/_13ssp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_4ssp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@drawable/bg_rounded_dashboard_7"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_project_name_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_project_name"
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_project_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Analisis Dampak Lalu Lintas Operasional Industri Mortar/Beton Siap Pakai"
+                    android:textSize="@dimen/_13ssp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_4ssp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@drawable/bg_rounded_dashboard_7"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_category_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_bangkitan"
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Rendah"
+                    android:textSize="@dimen/_13ssp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_4ssp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@drawable/bg_rounded_dashboard_7"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_consultant_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_consultant"
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_consultant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="MUHAMMAD AKHLIS SUBANDI, ST, MM	"
+                    android:textSize="@dimen/_13ssp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_4ssp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@drawable/bg_rounded_dashboard_7"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_date_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_date_request"
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="18-08-2023"
+                    android:textSize="@dimen/_13ssp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_4ssp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@drawable/bg_rounded_dashboard_7"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_last_update_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_date_request"
+                    android:textSize="@dimen/_13ssp"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_last_update"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="18-08-2023"
+                    android:visibility="gone"
+                    android:textSize="@dimen/_13ssp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_4ssp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@drawable/bg_rounded_dashboard_7"
+                    android:textColor="@color/colorTextSecondary"
+                    android:fontFamily="@font/poppins_regular"/>
+            </LinearLayout>
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/bg_rounded_dashboard_2"
+            android:drawableEnd="@drawable/ic_bottom"
+            android:drawablePadding="@dimen/_4sdp"
+            android:drawableTint="@color/white"
+            android:fontFamily="@font/poppins_light"
+            android:gravity="end|center"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:text="@string/title_show_more"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_category"
+            app:layout_constraintTop_toBottomOf="@+id/el_detail" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

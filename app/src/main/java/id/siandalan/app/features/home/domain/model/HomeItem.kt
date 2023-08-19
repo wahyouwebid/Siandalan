@@ -8,6 +8,7 @@ data class HomeItem(
     val approved: Int?,
     val finish: Int?,
     val long: Int?,
+    val draftApprove: Int?,
     val dataApproved: List<DataApprovedItem>? = mutableListOf(),
 ) {
     data class DataApprovedItem(

@@ -41,7 +41,7 @@
             android:paddingEnd="@dimen/_16sdp"
             android:paddingBottom="@dimen/_3sdp"
             android:drawablePadding="@dimen/_8sdp"
-            android:text="Pie"
+            android:text="@string/title_pie_chart"
             android:drawableStart="@drawable/ic_chart_pie"
             android:drawableTint="@color/radio_flat_text_selector"
             android:textColor="@color/radio_flat_text_selector" />
@@ -58,7 +58,7 @@
             android:paddingEnd="@dimen/_16sdp"
             android:paddingBottom="@dimen/_3sdp"
             android:drawablePadding="@dimen/_8sdp"
-            android:text="Bar"
+            android:text="@string/title_bar_chart"
             android:drawableStart="@drawable/ic_chart_bar"
             android:drawableTint="@color/radio_flat_text_selector"
             android:textColor="@color/radio_flat_text_selector" />

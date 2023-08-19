@@ -1,4 +1,4 @@
-package id.siandalan.app.common.firebase
+package id.siandalan.app.core.firebase
 
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging

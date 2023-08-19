@@ -15,7 +15,10 @@ class UIKitToolbar(
         LayoutInflater.from(context), this, true
     )
 
-    fun setToolbar(res: String) {
-        binding.tvToolbar.text = res
+    fun setToolbar(res: String, action:() -> Unit) = with(binding) {
+        tvToolbar.text = res
+        ivLogout.setOnClickListener {
+            action.invoke()
+        }
     }
 }

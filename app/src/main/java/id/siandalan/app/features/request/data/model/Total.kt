@@ -1,9 +1,9 @@
 package id.siandalan.app.features.request.data.model
 
 
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 @Keep
 data class Total(
@@ -13,6 +13,9 @@ data class Total(
     @SerializedName("data_approved")
     @Expose
     val dataApproved: List<DataApproved?>?,
+    @SerializedName("data_drafted")
+    @Expose
+    val dataDrafted: List<DataApproved?>?,
     @SerializedName("draft")
     @Expose
     val draft: Int?,

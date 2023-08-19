@@ -1,9 +1,9 @@
 package id.siandalan.app.features.request.data.model
 
 
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import id.siandalan.app.features.request.domain.model.RequestItem
 
 @Keep

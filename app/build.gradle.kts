@@ -27,14 +27,14 @@ android {
         named(AndroidBuildType.DEBUG) {
             isMinifyEnabled = false
             proguardFiles (getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", "baseUrl", "\"http://116.0.4.24:808/\"")
+            buildConfigField("String", "baseUrl", "\"http://116.0.4.24:808/siandalan-pengembangan/\"")
             buildConfigField("String", "webUrl", "\"http://116.0.4.24:808/siandalan2022/public/\"")
         }
 
         named(AndroidBuildType.RELEASE) {
             isMinifyEnabled = true
             proguardFiles (getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", "baseUrl", "\"http://116.0.4.24:808/\"")
+            buildConfigField("String", "baseUrl", "\"http://116.0.4.24:808/siandalan-pengembangan/\"")
             buildConfigField("String", "webUrl", "\"http://116.0.4.24:808/siandalan2022/public/\"")
         }
     }
@@ -64,6 +64,7 @@ dependencies {
     implementation(Dependencies.MATERIAL)
     implementation(Dependencies.MPACHART)
     implementation(Dependencies.SHIMMER)
+    implementation(Dependencies.EXPANDABLE)
 
     // Navigation Component
     implementation(Dependencies.NAVIGATION_FRAGMENT)
@@ -75,6 +76,9 @@ dependencies {
     implementation(Dependencies.CONVERTER_GSON)
     implementation(Dependencies.OKHTTP)
     implementation(Dependencies.OKHTTP_INTERCEPTOR)
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     debugImplementation(Dependencies.CHUCKER)
     releaseImplementation(Dependencies.CHUCKER_NOOP)
 

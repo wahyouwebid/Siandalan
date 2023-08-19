@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import id.siandalan.app.databinding.UikitDashboardBinding
-import id.siandalan.app.databinding.UikitToolbarBinding
 
 class UIKitDashboard(
     context: Context,

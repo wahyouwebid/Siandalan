@@ -46,8 +46,8 @@ class UIKitChart(
         val pieEntries = listOf(
             PieEntry(data.request?.toFloat() ?: 0f, context.getString(R.string.title_dashboard_new_request)),
             PieEntry(data.process?.toFloat() ?: 0f, context.getString(R.string.title_dashboard_onprogress)),
-            PieEntry(data.approved?.toFloat() ?: 0f, context.getString(R.string.title_dashboard_verified)),
-            PieEntry(data.draft?.toFloat() ?: 0f, context.getString(R.string.title_dashboard_draft_approval)),
+            PieEntry(data.draftApprove?.toFloat() ?: 0f, context.getString(R.string.title_chart_legend_draft)),
+            PieEntry(data.approved?.toFloat() ?: 0f, context.getString(R.string.title_chart_legend_approved)),
             PieEntry(data.finish?.toFloat() ?: 0f, context.getString(R.string.title_dashboard_done)),
             PieEntry(data.long?.toFloat() ?: 0f, context.getString(R.string.title_dashboard_pending)),
         )
@@ -72,7 +72,6 @@ class UIKitChart(
     }
 
     fun setDataBarChart(data: HomeItem) = with(binding) {
-
         val entries = ArrayList<BarEntry>()
         val labelSize = arrayOfNulls<String>(6)
 
@@ -91,8 +90,8 @@ class UIKitChart(
 
         entries.add(BarEntry(5f, data.request?.toFloat() ?: 0f))
         entries.add(BarEntry(4f, data.process?.toFloat() ?: 0f))
-        entries.add(BarEntry(3f,data.approved?.toFloat() ?: 0f))
-        entries.add(BarEntry(2f, data.draft?.toFloat() ?: 0f))
+        entries.add(BarEntry(3f,data.draftApprove?.toFloat() ?: 0f))
+        entries.add(BarEntry(2f, data.approved?.toFloat() ?: 0f))
         entries.add(BarEntry(1f, data.finish?.toFloat() ?: 0f))
         entries.add(BarEntry(0f, data.long?.toFloat() ?: 0f))
 

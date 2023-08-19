@@ -16,7 +16,7 @@ class HomeDomainModule {
     @Provides
     fun provideInteractor(
         repository: HomeRepository,
-        disposable: CompositeDisposable,
+        disposable: CompositeDisposable
     ): HomeUseCase {
         return HomeInteractor(repository, disposable)
     }

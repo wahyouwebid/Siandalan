@@ -26,4 +26,5 @@ object Versions {
     const val SHIMMER = "0.5.0"
     const val SECURITY = "1.1.0-alpha01"
     const val FIREBASE_BOM = "32.1.1"
+    const val EXPANDABLE = "2.9.2"
 }

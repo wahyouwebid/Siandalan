@@ -13,10 +13,13 @@ import id.siandalan.app.common.utils.convertToCamelCase
 import id.siandalan.app.common.utils.hide
 import id.siandalan.app.common.utils.show
 import id.siandalan.app.core.firebase.FirebaseUtils
+import id.siandalan.app.core.mapper.ErrorMapper
 import id.siandalan.app.databinding.ActivityLoginBinding
 import id.siandalan.app.features.login.domain.model.ModuleItem
 import id.siandalan.app.features.login.domain.model.UserItem
 import id.siandalan.app.features.main.MainActivity
+import retrofit2.HttpException
+import java.io.IOException
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate) {
@@ -47,8 +50,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             )
         }
 
-        etUsername.setText("DEVAWAL")
-        etPassword.setText("123456")
+//        etUsername.setText("DEVAWAL")
+//        etPassword.setText("123456")
 
         ivSetting.setOnClickListener {
             showModule(true)
@@ -60,7 +63,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             when(state) {
                 is BaseResultState.Loading -> onLoading(true)
                 is BaseResultState.Success -> onSuccessLogin(state.data)
-                is BaseResultState.Error -> showError(state.error.message)
+                is BaseResultState.Error -> showError(state.error)
             }
         }
 
@@ -68,7 +71,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             when(state) {
                 is BaseResultState.Loading -> onLoading(true)
                 is BaseResultState.Success -> onSuccessModule(state.data)
-                is BaseResultState.Error ->  showError(state.error.message)
+                is BaseResultState.Error ->  showError(state.error)
             }
         }
 
@@ -123,6 +126,28 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             btnLogin.show()
             btnLogin.isEnabled = true
         }
+    }
+
+    private fun showError(error: Throwable?) {
+        onLoading(false)
+        when(error) {
+            is HttpException -> {
+                Snackbar.make(
+                    binding.root,
+                    ErrorMapper.errorMapperlogin(error)?.password ?: getString(R.string.title_error_des),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+
+            is IOException -> {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.title_no_internet_connection),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
+
     }
 
     private fun showError(message: String?) {

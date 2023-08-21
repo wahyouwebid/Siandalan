@@ -32,7 +32,7 @@
     <string name="title_input_email">Masukkan email untuk pemohon</string>
     <string name="title_password">Password</string>
     <string name="title_input_password">Password</string>
-    <string name="title_try_again">Try Again</string>
+    <string name="title_try_again">Coba Lagi</string>
     <string name="title_error">Terjadi Kesalahan</string>
     <string name="title_error_des">Silakan untuk coba lagi nanti</string>
     <string name="title_profile">Profile</string>
@@ -46,8 +46,8 @@
     <string name="title_module">Module</string>
     <string name="title_show_module">Tampilkan Module</string>
     <string name="title_logout_des">Apakah anda yakin ingin melakukan Log out dari aplikasi Siandalan?</string>
-    <string name="title_no">No</string>
-    <string name="title_yes">Yes</string>
+    <string name="title_no">Tidak</string>
+    <string name="title_yes">Ya</string>
     <string name="title_show_more">Lihat Lebih Banyak</string>
     <string name="title_show_less">Lihat Lebih Sedikit</string>
     <string name="title_status">Status</string>

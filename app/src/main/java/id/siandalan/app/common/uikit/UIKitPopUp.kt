@@ -21,7 +21,7 @@ class UIKitPopUp(private val activity: AppCompatActivity) :
     fun showPopup(action:() -> Unit) {
         val dialog = Dialog(activity)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
+        dialog.setCancelable(true)
         val binding: PopupDialogCommonsBinding by lazy {
             PopupDialogCommonsBinding.inflate(layoutInflater)
         }

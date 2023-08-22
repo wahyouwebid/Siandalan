@@ -116,7 +116,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     }
 
     private fun onLoading(isLoading: Boolean) = with(binding){
-        uikitLoading.setLoadingProgress(isLoading)
+        uikitLoading.setLoadingProgressWithText(isLoading)
         if (isLoading) {
             uikitLoading.show()
             btnLogin.hide()

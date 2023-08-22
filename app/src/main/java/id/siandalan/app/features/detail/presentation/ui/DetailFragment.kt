@@ -1,6 +1,7 @@
 package id.siandalan.app.features.detail.presentation.ui
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.webkit.WebView
@@ -9,6 +10,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import id.siandalan.app.common.base.BaseFragment
 import id.siandalan.app.common.base.BaseResultState
+import id.siandalan.app.common.utils.hide
 import id.siandalan.app.common.utils.show
 import id.siandalan.app.databinding.FragmentDetailBinding
 import id.siandalan.app.features.detail.presentation.viewmodel.DetailViewModel
@@ -44,8 +46,20 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         webView.webViewClient = object : WebViewClient() {
             @Deprecated("Deprecated in Java", ReplaceWith("true"))
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                Log.d("poke", "shouldOverrideUrlLoading: $url")
-                return false
+                if (url != null) {
+                    view?.loadUrl(url)
+                }
+                return true
+            }
+
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                uikitLoading.setLoadingProgress(true)
+                super.onPageStarted(view, url, favicon)
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                uikitLoading.setLoadingProgress(false)
+                super.onPageFinished(view, url)
             }
         }
         val content = response.string()

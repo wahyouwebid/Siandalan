@@ -59,4 +59,14 @@
             android:textSize="@dimen/_16ssp"/>
 
     </LinearLayout>
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/colorPrimary" />
 </androidx.cardview.widget.CardView>

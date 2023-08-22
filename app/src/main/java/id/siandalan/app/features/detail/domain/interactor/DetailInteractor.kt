@@ -14,10 +14,7 @@ class DetailInteractor @Inject constructor(
     private val repository: DetailRepository,
     private val disposable: CompositeDisposable
 ): DetailUseCase {
-    override fun getDetail(
-        id: String?,
-        callback: (BaseResultState<ResponseBody>) -> Unit
-    ) {
+    override fun getDetail(id: String?, callback: (BaseResultState<ResponseBody>) -> Unit) {
         repository.getDetail(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -26,10 +23,6 @@ class DetailInteractor @Inject constructor(
             .startWithItem(BaseResultState.Loading)
             .subscribe(callback)
             .let { disposable.add(it) }
-    }
-
-    override fun getToken(): String {
-        return repository.getToken()
     }
 
     override fun clearDisposable() {

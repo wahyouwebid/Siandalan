@@ -4,6 +4,8 @@ import id.siandalan.app.core.sessions.Sessions
 import id.siandalan.app.features.detail.data.api.DetailApiService
 import id.siandalan.app.features.detail.domain.repository.DetailRepository
 import io.reactivex.rxjava3.core.Observable
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody
 import javax.inject.Inject
 
@@ -15,8 +17,9 @@ class DetailDataRepository @Inject constructor(
     override fun getDetail(id: String?): Observable<ResponseBody> {
         val token = getToken()
         val module = getModule()
-        val username = getUsername()
-        return api.getDetail(token, module, username, id)
+        val username = getUsername().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val idRequest = id?.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        return api.getDetail(token, module, username, idRequest)
     }
 
     override fun getToken() = sessions.getString(Sessions.accessToken)

@@ -23,7 +23,4 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun getToken(): String {
-        return useCase.getToken()
-    }
 }

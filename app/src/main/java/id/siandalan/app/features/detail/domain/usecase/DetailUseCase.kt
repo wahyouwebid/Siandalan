@@ -10,7 +10,5 @@ interface DetailUseCase {
         callback: (BaseResultState<ResponseBody>) -> Unit
     )
 
-    fun getToken(): String
-
     fun clearDisposable()
 }

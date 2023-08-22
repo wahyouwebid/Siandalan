@@ -50,8 +50,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             )
         }
 
-//        etUsername.setText("DEVAWAL")
-//        etPassword.setText("123456")
+        etUsername.setText("DEVAWAL")
+        etPassword.setText("123456")
 
         ivSetting.setOnClickListener {
             showModule(true)

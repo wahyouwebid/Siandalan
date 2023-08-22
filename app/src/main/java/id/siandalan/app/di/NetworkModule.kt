@@ -10,6 +10,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import id.siandalan.app.BuildConfig
+import id.siandalan.app.core.cookies.WebViewCookieJar
 import id.siandalan.app.features.login.domain.repository.LoginRepository
 import id.siandalan.app.features.login.presentation.LoginActivity
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -52,6 +53,7 @@ class NetworkModule {
             writeTimeout(30, TimeUnit.SECONDS)
             addInterceptor(interceptor)
             addInterceptor(chuckerInterceptor)
+            cookieJar(WebViewCookieJar())
         }.build()
     }
 

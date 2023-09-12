@@ -27,4 +27,6 @@ object Versions {
     const val SECURITY = "1.1.0-alpha01"
     const val FIREBASE_BOM = "32.1.1"
     const val EXPANDABLE = "2.9.2"
+    const val AUTO_SLIDER = "1.0.2"
+    const val GLIDE = "4.11.0"
 }

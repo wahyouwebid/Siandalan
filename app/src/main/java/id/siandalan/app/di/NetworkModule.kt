@@ -11,7 +11,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import id.siandalan.app.BuildConfig
 import id.siandalan.app.core.cookies.WebViewCookieJar
-import id.siandalan.app.features.login.domain.repository.LoginRepository
+import id.siandalan.app.core.sessions.Sessions
 import id.siandalan.app.features.login.presentation.LoginActivity
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import okhttp3.HttpUrl
@@ -45,7 +45,8 @@ class NetworkModule {
     @Singleton
     fun providesHttpClient(
         interceptor: HttpLoggingInterceptor,
-        chuckerInterceptor: ChuckerInterceptor
+        chuckerInterceptor: ChuckerInterceptor,
+        apiKey: Interceptor
     ): OkHttpClient {
         return OkHttpClient.Builder().apply {
             retryOnConnectionFailure(true)
@@ -53,6 +54,7 @@ class NetworkModule {
             writeTimeout(30, TimeUnit.SECONDS)
             addInterceptor(interceptor)
             addInterceptor(chuckerInterceptor)
+            addInterceptor(apiKey)
             cookieJar(WebViewCookieJar())
         }.build()
     }
@@ -81,8 +83,9 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun providesApiKey(@ApplicationContext context: Context, repository: LoginRepository): Interceptor = Interceptor { chain ->
+    fun providesApiKey(@ApplicationContext context: Context): Interceptor = Interceptor { chain ->
         var request: Request = chain.request()
+        val session = Sessions(context)
         val url: HttpUrl = request.url.newBuilder()
             .build()
         request = request.newBuilder().url(url).build()
@@ -92,7 +95,7 @@ class NetworkModule {
             val intent = Intent(context, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             context.startActivity(intent)
-            repository.setIsLogin(false)
+            session.putBoolean(Sessions.isLogin, false)
         }
 
         return@Interceptor response

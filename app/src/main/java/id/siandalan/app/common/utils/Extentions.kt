@@ -12,6 +12,10 @@ fun View.show() {
     visibility = View.VISIBLE
 }
 
+fun View.invisible() {
+    visibility = View.INVISIBLE
+}
+
 fun String.capitalizeFirstLetter(): String {
     if (isNotEmpty()) {
         return substring(0, 1).uppercase(Locale.ROOT) + substring(1)

@@ -43,7 +43,8 @@ class LoginViewModel @Inject constructor(
         isShownModule: Boolean,
         module: String?,
         username: String,
-        password: String
+        password: String,
+        isRemember: Boolean
     ) {
         val validateUsername = validateUsername(binding, username)
         val validatePassword = validatePassword(binding, password)
@@ -62,6 +63,11 @@ class LoginViewModel @Inject constructor(
         if (!hasError.any { !it.successful }) {
             useCase.login(module, username, password) {
                 login.postValue(it)
+                useCase.setIsRemember(isRemember)
+                if (isRemember) {
+                    useCase.setUsername(username)
+                    useCase.setPassword(password)
+                }
             }
         } else {
             hasError.reversed().filter { !it.successful }.map {
@@ -98,6 +104,18 @@ class LoginViewModel @Inject constructor(
 
     fun getIsLogin(): Boolean {
         return useCase.getIsLogin()
+    }
+
+    fun getIsRemember(): Boolean {
+        return useCase.getIsRemember()
+    }
+
+    fun getUsername(): String {
+        return useCase.getUsername()
+    }
+
+    fun getPassword(): String {
+        return useCase.getPassword()
     }
 
     fun validateUsername(

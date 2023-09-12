@@ -31,6 +31,8 @@ class Sessions constructor(
         const val accessToken = "access_token"
         const val tokenFirebase = "token_firebase"
         const val isLogin = "is_login"
+        const val isRemember = "is_remember"
+        const val password = "password"
     }
 
     private var editor: SharedPreferences.Editor? = null

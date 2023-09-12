@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.widget.doOnTextChanged
+import com.codebyashish.autoimageslider.Enums.ImageScaleType
+import com.codebyashish.autoimageslider.Models.ImageSlidesModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import id.siandalan.app.R
@@ -11,6 +13,7 @@ import id.siandalan.app.common.base.BaseActivity
 import id.siandalan.app.common.base.BaseResultState
 import id.siandalan.app.common.utils.convertToCamelCase
 import id.siandalan.app.common.utils.hide
+import id.siandalan.app.common.utils.invisible
 import id.siandalan.app.common.utils.show
 import id.siandalan.app.core.firebase.FirebaseUtils
 import id.siandalan.app.core.mapper.ErrorMapper
@@ -28,10 +31,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
 
     private var module: String? = ""
     private var moduleIsShown: Boolean = true
+    private var isChecked = false
 
     override fun setupView(savedInstanceState: Bundle?) = with(binding){
         FirebaseUtils.generateTokenFirebase().toString()
-
+        setupIsRemember()
+        setupAutoSlider()
         etUsername.doOnTextChanged { text, _, _, _ ->
             viewModel.validateUsername(binding, text.toString())
         }
@@ -47,11 +52,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
                 viewModel.getModuleName(),
                 etUsername.text.toString(),
                 etPassword.text.toString(),
+                isChecked
             )
         }
-
-        etUsername.setText("DEVAWAL")
-        etPassword.setText("123456")
 
         ivSetting.setOnClickListener {
             showModule(true)
@@ -84,6 +87,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         }
 
         if (viewModel.getModuleName().isNullOrEmpty()) {
+            binding.ivSetting.hide()
             binding.tvModule.text = getString(R.string.title_choose_module)
             showModule(true)
         } else {
@@ -119,7 +123,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         uikitLoading.setLoadingProgressWithText(isLoading)
         if (isLoading) {
             uikitLoading.show()
-            btnLogin.hide()
+            btnLogin.invisible()
             btnLogin.isEnabled = false
         } else {
             uikitLoading.hide()
@@ -164,6 +168,33 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             moduleIsShown = false
             tvModuleLabel.hide()
             tvModule.hide()
+        }
+    }
+
+    private fun setupAutoSlider() = with(binding){
+        val autoImageList : ArrayList<ImageSlidesModel> = ArrayList()
+        autoImageList.add(ImageSlidesModel("http://116.0.4.24:808/siandalan2022/public/assets/default/img/slide/slide-23.jpg", ""))
+        autoImageList.add(ImageSlidesModel("http://116.0.4.24:808/siandalan2022/public/assets/default/img/slide/slide-31.jpg", ""))
+        autoImageList.add(ImageSlidesModel("http://116.0.4.24:808/siandalan2022/public/assets/default/img/slide/slide-33.jpg", ""))
+        autoImageList.add(ImageSlidesModel("http://116.0.4.24:808/siandalan2022/public/assets/default/img/slide/slide-34.jpg", ""))
+
+        autoSlider.setImageList(autoImageList, ImageScaleType.CENTER_CROP)
+        autoSlider.setDefaultAnimation()
+    }
+
+    private fun setupIsRemember() = with(binding){
+        val isRemember = viewModel.getIsRemember()
+        val username = viewModel.getUsername()
+        val password = viewModel.getPassword()
+        if (isRemember) {
+            isChecked = isRemember
+            cbRememberMe.isChecked = isRemember
+            etUsername.setText(username)
+            etPassword.setText(password)
+        }
+
+        cbRememberMe.setOnCheckedChangeListener { _, isCheck ->
+            isChecked = isCheck
         }
     }
 }

@@ -26,4 +26,16 @@ interface LoginRepository {
 
     fun getIsLogin(): Boolean
 
+    fun setIsRemember(isRemember: Boolean)
+
+    fun getIsRemember(): Boolean
+
+    fun setUsername(password: String?)
+
+    fun getUsername(): String
+
+    fun setPassword(password: String?)
+
+    fun getPassword(): String
+
 }

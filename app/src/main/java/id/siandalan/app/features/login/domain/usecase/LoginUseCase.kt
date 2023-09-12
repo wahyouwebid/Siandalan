@@ -36,5 +36,17 @@ interface LoginUseCase {
 
     fun validateModule(module: String?): ValidationResult
 
+    fun setIsRemember(isRemember: Boolean)
+
+    fun getIsRemember(): Boolean
+
+    fun setUsername(password: String?)
+
+    fun getUsername(): String
+
+    fun setPassword(password: String?)
+
+    fun getPassword(): String
+
     fun clearDisposable()
 }

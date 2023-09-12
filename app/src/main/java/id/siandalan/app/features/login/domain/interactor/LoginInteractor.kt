@@ -10,8 +10,9 @@ import id.siandalan.app.features.login.domain.usecase.LoginUseCase
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
-class LoginInteractor(
+class LoginInteractor @Inject constructor(
     private val repository: LoginRepository,
     private val disposable: CompositeDisposable
 ): LoginUseCase {
@@ -101,6 +102,30 @@ class LoginInteractor(
                 ValidationResult(true)
             }
         }
+    }
+
+    override fun setIsRemember(isRemember: Boolean) {
+        repository.setIsRemember(isRemember)
+    }
+
+    override fun getIsRemember(): Boolean {
+        return repository.getIsRemember()
+    }
+
+    override fun setUsername(password: String?) {
+        repository.setUsername(password)
+    }
+
+    override fun getUsername(): String {
+        return repository.getUsername()
+    }
+
+    override fun setPassword(password: String?) {
+        repository.setPassword(password)
+    }
+
+    override fun getPassword(): String {
+        return repository.getPassword()
     }
 
     override fun clearDisposable() {

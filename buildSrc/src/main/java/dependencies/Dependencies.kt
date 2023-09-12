@@ -32,6 +32,8 @@ object Dependencies {
     const val MPACHART = "com.github.PhilJay:MPAndroidChart:${Versions.MPACHART}"
     const val SHIMMER = "com.facebook.shimmer:shimmer:${Versions.SHIMMER}"
     const val EXPANDABLE = "com.github.cachapa:ExpandableLayout:${Versions.EXPANDABLE}"
+    const val AUTO_SLIDER = "com.github.dangiashish:Auto-Image-Slider:${Versions.AUTO_SLIDER}"
+    const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
 
     /** RxJava **/
     const val RX_ANDROID = "io.reactivex.rxjava3:rxandroid:${Versions.RX_ANDROID}"

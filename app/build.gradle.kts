@@ -65,6 +65,8 @@ dependencies {
     implementation(Dependencies.MPACHART)
     implementation(Dependencies.SHIMMER)
     implementation(Dependencies.EXPANDABLE)
+    implementation(Dependencies.AUTO_SLIDER)
+    implementation(Dependencies.GLIDE)
 
     // Navigation Component
     implementation(Dependencies.NAVIGATION_FRAGMENT)
@@ -76,9 +78,6 @@ dependencies {
     implementation(Dependencies.CONVERTER_GSON)
     implementation(Dependencies.OKHTTP)
     implementation(Dependencies.OKHTTP_INTERCEPTOR)
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     debugImplementation(Dependencies.CHUCKER)
     releaseImplementation(Dependencies.CHUCKER_NOOP)
 

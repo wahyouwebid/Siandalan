@@ -61,4 +61,28 @@ class LoginDataRepository(
         return sessions.getBoolean(Sessions.isLogin)
     }
 
+    override fun setIsRemember(isRemember: Boolean) {
+        sessions.putBoolean(Sessions.isRemember, isRemember)
+    }
+
+    override fun getIsRemember(): Boolean {
+        return sessions.getBoolean(Sessions.isRemember)
+    }
+
+    override fun setUsername(password: String?) {
+        sessions.putString(Sessions.username, password)
+    }
+
+    override fun getUsername(): String {
+        return sessions.getString(Sessions.username)
+    }
+
+    override fun setPassword(password: String?) {
+        sessions.putString(Sessions.password, password)
+    }
+
+    override fun getPassword(): String {
+        return sessions.getString(Sessions.password)
+    }
+
 }

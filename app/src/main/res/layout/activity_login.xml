@@ -234,6 +234,7 @@
                     android:layout_marginEnd="@dimen/_16sdp"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_12ssp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/cb_remember_me"
                     app:layout_constraintEnd_toEndOf="@+id/tl_password"
                     app:layout_constraintTop_toTopOf="@+id/cb_remember_me" />

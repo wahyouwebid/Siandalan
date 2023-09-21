@@ -10,7 +10,7 @@ import id.siandalan.app.databinding.ActivityLoginBinding
 import id.siandalan.app.features.login.domain.model.ModuleItem
 import id.siandalan.app.features.login.domain.model.UserItem
 import id.siandalan.app.features.login.domain.model.ValidationResult
-import id.siandalan.app.features.login.domain.usecase.LoginUseCase
+import id.siandalan.app.features.login.domain.LoginUseCase
 import javax.inject.Inject
 
 @HiltViewModel

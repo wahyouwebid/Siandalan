@@ -4,9 +4,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import id.siandalan.app.features.login.domain.interactor.LoginInteractor
-import id.siandalan.app.features.login.domain.repository.LoginRepository
-import id.siandalan.app.features.login.domain.usecase.LoginUseCase
+import id.siandalan.app.features.login.domain.LoginInteractor
+import id.siandalan.app.features.login.domain.LoginRepository
+import id.siandalan.app.features.login.domain.LoginUseCase
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 @InstallIn(SingletonComponent::class)
 @Module

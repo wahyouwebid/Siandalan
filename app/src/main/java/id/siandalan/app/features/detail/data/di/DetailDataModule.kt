@@ -5,9 +5,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import id.siandalan.app.core.sessions.Sessions
-import id.siandalan.app.features.detail.data.api.DetailApiService
-import id.siandalan.app.features.detail.data.repository.DetailDataRepository
-import id.siandalan.app.features.detail.domain.repository.DetailRepository
+import id.siandalan.app.features.detail.data.DetailApiService
+import id.siandalan.app.features.detail.data.DetailDataRepository
+import id.siandalan.app.features.detail.domain.DetailRepository
 import retrofit2.Retrofit
 import javax.inject.Singleton
 

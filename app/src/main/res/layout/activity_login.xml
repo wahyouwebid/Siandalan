@@ -54,38 +54,30 @@
                 android:layout_marginTop="@dimen/_32sdp"
                 app:layout_constraintTop_toBottomOf="@+id/tv_login">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_welcome"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textSize="@dimen/_20ssp"
-                    android:textColor="@color/white"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:layout_width="@dimen/_300sdp"
+                    android:layout_height="@dimen/_50sdp"
                     android:gravity="center"
-                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@drawable/logo_siandalan"
                     android:layout_marginStart="@dimen/_25sdp"
                     android:layout_marginEnd="@dimen/_25sdp"
-                    android:text="@string/title_welcome_content"
                     android:fontFamily="@font/poppins_regular"
                     android:textSize="@dimen/_14ssp"
                     android:textColor="@color/white"/>
 
-            </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_welcome"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="@dimen/_16ssp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/_25sdp"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:textColor="@color/white"/>
 
-            <ImageView
-                android:id="@+id/iv_login"
-                android:layout_width="@dimen/_250sdp"
-                android:layout_height="@dimen/_200sdp"
-                android:background="@drawable/bg_login"
-                android:layout_marginTop="@dimen/_25sdp"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_login" />
+            </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_content"

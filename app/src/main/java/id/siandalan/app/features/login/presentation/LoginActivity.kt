@@ -173,10 +173,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
 
     private fun setupAutoSlider() = with(binding){
         val autoImageList : ArrayList<ImageSlidesModel> = ArrayList()
-        autoImageList.add(ImageSlidesModel("http://116.0.4.24:808/siandalan2022/public/assets/default/img/slide/slide-23.jpg", ""))
-        autoImageList.add(ImageSlidesModel("http://116.0.4.24:808/siandalan2022/public/assets/default/img/slide/slide-31.jpg", ""))
-        autoImageList.add(ImageSlidesModel("http://116.0.4.24:808/siandalan2022/public/assets/default/img/slide/slide-33.jpg", ""))
-        autoImageList.add(ImageSlidesModel("http://116.0.4.24:808/siandalan2022/public/assets/default/img/slide/slide-34.jpg", ""))
+        autoImageList.add(ImageSlidesModel(R.drawable.slider_1, ""))
+        autoImageList.add(ImageSlidesModel(R.drawable.slider_2, ""))
+        autoImageList.add(ImageSlidesModel(R.drawable.slider_3, ""))
+        autoImageList.add(ImageSlidesModel(R.drawable.slider_4, ""))
 
         autoSlider.setImageList(autoImageList, ImageScaleType.CENTER_CROP)
         autoSlider.setDefaultAnimation()

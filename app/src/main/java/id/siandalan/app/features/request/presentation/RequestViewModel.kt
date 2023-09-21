@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.siandalan.app.common.base.BaseResultState
 import id.siandalan.app.features.request.domain.model.RequestItem
-import id.siandalan.app.features.request.domain.usecase.RequestUseCase
+import id.siandalan.app.features.request.domain.RequestUseCase
 import javax.inject.Inject
 
 @HiltViewModel

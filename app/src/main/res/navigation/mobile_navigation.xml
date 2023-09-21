@@ -54,7 +54,7 @@
 
     <fragment
         android:id="@+id/navigation_detail"
-        android:name="id.siandalan.app.features.detail.presentation.ui.DetailFragment"
+        android:name="id.siandalan.app.features.detail.presentation.DetailFragment"
         android:label="DetailFragment"
         tools:layout="@layout/fragment_detail" />
 

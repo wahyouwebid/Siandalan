@@ -72,4 +72,5 @@ class RequestFragment : BaseFragment<FragmentRequestBinding>(FragmentRequestBind
         rvData.adapter = requestAdapter
     }
 
+
 }

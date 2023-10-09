@@ -16,7 +16,7 @@ class UIKitToolbar(
     )
 
     fun setToolbar(res: String, action:() -> Unit) = with(binding) {
-        tvToolbar.text = res
+        //tvToolbar.text = res
         ivLogout.setOnClickListener {
             action.invoke()
         }

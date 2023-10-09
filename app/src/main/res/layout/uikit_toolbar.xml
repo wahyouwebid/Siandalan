@@ -6,13 +6,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimary">
 
-    <TextView
+    <ImageView
         android:id="@+id/tv_toolbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_160sdp"
+        android:layout_height="@dimen/_26sdp"
         android:fontFamily="@font/poppins_bold"
         android:textColor="@color/white"
         android:textSize="@dimen/_18ssp"
+        android:background="@drawable/logo_siandalan"
         android:layout_marginTop="@dimen/_3sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

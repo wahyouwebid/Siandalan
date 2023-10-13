@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import id.siandalan.app.R
 import id.siandalan.app.databinding.PopupDialogCommonsBinding
+import id.siandalan.app.databinding.PopupDialogSuccessBinding
 
 /**
  * Created by wahyouwebid on 16 August 2023
@@ -45,6 +46,30 @@ class UIKitPopUpFragment(private val fragment: Fragment) : Dialog(fragment.requi
             }
             btnPositive.text = context.getString(R.string.title_try_again)
             btnNegative.setOnClickListener {
+                dialog?.dismiss()
+            }
+        }
+
+        dialog?.show()
+    }
+
+    fun showPopupSuccess() {
+        val dialog = fragment.context?.let { Dialog(it) }
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.setCancelable(true)
+        val binding: PopupDialogSuccessBinding by lazy {
+            PopupDialogSuccessBinding.inflate(layoutInflater)
+        }
+        dialog?.setContentView(binding.root)
+        val window: Window? = dialog?.window
+        window?.setLayout(
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        )
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        with(binding) {
+            btnPositive.setOnClickListener {
                 dialog?.dismiss()
             }
         }

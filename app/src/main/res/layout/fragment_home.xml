@@ -44,7 +44,7 @@
                 android:id="@+id/rv_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 app:layout_constraintTop_toBottomOf="@+id/tv_approval"/>
 
             <id.siandalan.app.common.uikit.UIKitEmptyData

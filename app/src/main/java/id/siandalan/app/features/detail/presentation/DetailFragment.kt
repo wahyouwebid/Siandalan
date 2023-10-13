@@ -1,26 +1,40 @@
 package id.siandalan.app.features.detail.presentation
 
+import android.Manifest
+import android.app.DownloadManager
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Paint
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.barteksc.pdfviewer.PDFView
 import com.github.barteksc.pdfviewer.link.DefaultLinkHandler
 import dagger.hilt.android.AndroidEntryPoint
 import id.siandalan.app.BuildConfig
 import id.siandalan.app.R
 import id.siandalan.app.common.base.BaseFragment
 import id.siandalan.app.common.base.BaseResultState
-import id.siandalan.app.common.uikit.UIKitPopUp
 import id.siandalan.app.common.uikit.UIKitPopUpFragment
 import id.siandalan.app.common.utils.Constant
 import id.siandalan.app.common.utils.dateFormat
 import id.siandalan.app.common.utils.dateFormatCompleteWithSecond
 import id.siandalan.app.common.utils.hide
+import id.siandalan.app.common.utils.openDownloadedPDF
 import id.siandalan.app.common.utils.parcelable
 import id.siandalan.app.common.utils.show
 import id.siandalan.app.core.sessions.Sessions
@@ -45,6 +59,21 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         arguments?.parcelable(Constant.DataParcelize.DATA.name)
     }
 
+    private var documentItem: HomeItem.DataApprovedItem.DocumentItem? = null
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            downloadPdf()
+        }
+        else Toast.makeText(
+            activity,
+            "Permission is needed to activate this feature.",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
     override fun setupView(savedInstanceState: Bundle?) = with(binding){
         uikitToolbar.setToolbar(data?.no + " : " + data?.projectName) {
             navigation?.navigateUp()
@@ -66,6 +95,38 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         }
 
         cvDaftarDokumen.setOnClickListener {
+            val homeAdapter = DetailDokumenAdapter {
+                documentItem = it
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    downloadPdf()
+                } else {
+                    when {
+                        requireContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED -> {
+                            downloadPdf()
+                        }
+                        shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) -> {
+                            Toast.makeText(
+                                requireContext(),
+                                "Permission is needed to activate this feature.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        }
+                        else -> {
+                            requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        }
+                    }
+                }
+            }
+
+            rvDaftarDokumen.setHasFixedSize(false)
+            rvDaftarDokumen.isNestedScrollingEnabled = false
+            rvDaftarDokumen.layoutManager = LinearLayoutManager(context)
+            rvDaftarDokumen.adapter = homeAdapter
+
+            homeAdapter.setData(data?.dataDocument)
+            homeAdapter.notifyItemRangeChanged(0, homeAdapter.itemCount)
+
             elDaftarDokumen.toggle()
             if (elDaftarDokumen.isExpanded) {
                 tvDaftarDokumen.setCompoundDrawablesWithIntrinsicBounds(
@@ -112,7 +173,7 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
 
         btnRevise.setOnClickListener {
             if (!etRevise.text.isNullOrEmpty()) {
-                viewModel.postRevise(data?.id, etRevise.text.toString())
+                viewModel.postRevise("1538", etRevise.text.toString())
             } else {
                 Toast.makeText(requireContext(), "Form revisi tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
@@ -148,16 +209,29 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         tvKodeBilling.text = data?.billingCode
         tvTanggalPembayaran.text = data?.paymentDate?.dateFormatCompleteWithSecond()
         tvKodeBilling.text = data?.billingCode
-    }
 
-    private fun setSkAndalan() = with(binding) {
         val sessions = Sessions(requireContext())
         val module = sessions.getString(Sessions.module)
-        val url = "${BuildConfig.baseUrl}/modules/${module}/public/${data?.finalLetterFile}"
+
+        val urlInvoice = "${BuildConfig.baseUrl}/modules/${module}/public/${data?.finalLetterFile}"
+        val urlKuitansi = "${BuildConfig.baseUrl}/modules/${module}/public/${data?.finalLetterFile}"
+        setupPdf(urlInvoice, pdfPembayaranInvoice)
+        setupPdf(urlKuitansi, pdfPembayaranKuitansi)
+    }
+
+    private fun setSkAndalan() {
+        val sessions = Sessions(requireContext())
+        val module = sessions.getString(Sessions.module)
+
+        val urlSk = "${BuildConfig.baseUrl}/modules/${module}/public/${data?.finalLetterFile}"
+        setupPdf(urlSk, binding.pdfSkAndalan)
+    }
+
+    private fun setupPdf(url: String, pdfView: PDFView) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val input = URL(url).openStream()
-                pdfSkAndalan.fromStream(input)
+                pdfView.fromStream(input)
                     .swipeHorizontal(false)
                     .enableSwipe(true)
                     .enableAnnotationRendering(true)
@@ -176,13 +250,28 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
 
                     }
                     .onRender { }
-                    .linkHandler(DefaultLinkHandler(pdfSkAndalan))
+                    .linkHandler(DefaultLinkHandler(pdfView))
                     .load()
 
             } catch (e: Exception) {
                 Log.e("error", e.toString())
             }
         }
+    }
+
+    private fun downloadPdf() {
+        val urlPdf = "${BuildConfig.baseUrl}/modules/pusat/public/${documentItem?.documentLink}"
+        val request = DownloadManager.Request(Uri.parse(urlPdf))
+            .setTitle("${documentItem?.documentName}")
+            .setDescription("Downloading ${documentItem?.documentName}")
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "${documentItem?.documentName}.pdf")
+
+        val dm = activity?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        dm.enqueue(request)
+
+        val intentBroadCast = Intent(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intentBroadCast)
     }
 
     override fun setupViewModel() {
@@ -195,7 +284,9 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
             when(it) {
                 is BaseResultState.Loading -> onLoading(true)
                 is BaseResultState.Success -> {
-                    Toast.makeText(requireContext(), "Revisi Berhasil!!", Toast.LENGTH_SHORT).show()
+                    onLoading(false)
+                    binding.etRevise.setText("")
+                    UIKitPopUpFragment(this).showPopupSuccess()
                 }
                 is BaseResultState.Error -> onError()
             }
@@ -219,5 +310,25 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
             viewModel.postRevise(data?.id, etRevise.text.toString())
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
+            broadCastDownloadComplete,
+            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(broadCastDownloadComplete)
+    }
+
+    private var broadCastDownloadComplete = object : BroadcastReceiver() {
+        override fun onReceive(contex: Context?, p1: Intent?) {
+            requireContext().openDownloadedPDF("${documentItem?.documentName}.pdf")
+        }
+    }
+
 
 }

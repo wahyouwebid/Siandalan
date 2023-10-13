@@ -23,7 +23,7 @@ class DetailDataRepository @Inject constructor(
 
     override fun postRevise(id: String?, catatanDraftSk: String?): Observable<ResponseBody> {
         val token = getToken()
-        val module = getModule()
+        val module = "pusat"
         val username = getUsername()
         val stat = "catatan_draft_sk"
         return api.postRevise(token,module, id, stat, catatanDraftSk, username)

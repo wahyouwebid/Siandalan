@@ -591,7 +591,7 @@
                         android:paddingTop="@dimen/_22sdp"
                         android:paddingEnd="@dimen/_24sdp"
                         android:paddingBottom="@dimen/_20sdp"
-                        android:text="@string/title_data_pengajuan"
+                        android:text="@string/title_daftar_dokumen"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/_16ssp"
                         app:drawableEndCompat="@drawable/ic_bottom"
@@ -635,6 +635,12 @@
                                 android:text="@string/title_detail_daftar_document_info"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_15ssp" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_daftar_dokumen"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_16sdp"/>
 
                         </LinearLayout>
                     </net.cachapa.expandablelayout.ExpandableLayout>
@@ -799,6 +805,23 @@
                                 android:textColor="@color/colorTextSecondary"
                                 android:textSize="@dimen/_13ssp"
                                 tools:text="09 October 2023 12:00:00" />
+
+                            <com.github.barteksc.pdfviewer.PDFView
+                                android:id="@+id/pdf_pembayaran_invoice"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_500sdp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                android:layout_marginTop="@dimen/_24sdp"
+                                android:background="@color/grey2"/>
+
+                            <com.github.barteksc.pdfviewer.PDFView
+                                android:id="@+id/pdf_pembayaran_kuitansi"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_500sdp"
+                                android:layout_marginTop="@dimen/_24sdp"/>
 
                         </LinearLayout>
                     </net.cachapa.expandablelayout.ExpandableLayout>

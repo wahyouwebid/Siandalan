@@ -23,4 +23,15 @@ interface DetailApiService {
         @Part("id") id: RequestBody?
     ): Observable<ResponseBody>
 
+    @FormUrlEncoded
+    @POST("modules/{module}/public/Api/Android/Api_andalalin/catatan_draft_sk")
+    fun postRevise(
+        @Header("Authorization") token: String,
+        @Path("module") module: String,
+        @Field("id") id: String?,
+        @Field("stat") stat: String,
+        @Field("catatan_draft_sk") catatanDraftSk: String?,
+        @Field("username") username: String,
+    ): Observable<ResponseBody>
+
 }

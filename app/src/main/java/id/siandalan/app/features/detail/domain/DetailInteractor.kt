@@ -23,6 +23,21 @@ class DetailInteractor @Inject constructor(
             .let { disposable.add(it) }
     }
 
+    override fun postRevise(
+        id: String?,
+        catatanDraftSk: String?,
+        callback: (BaseResultState<ResponseBody>) -> Unit
+    ) {
+        repository.postRevise(id, catatanDraftSk)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map<BaseResultState<ResponseBody>> { BaseResultState.Success(it) }
+            .onErrorReturn { BaseResultState.Error(it) }
+            .startWithItem(BaseResultState.Loading)
+            .subscribe(callback)
+            .let { disposable.add(it) }
+    }
+
     override fun clearDisposable() {
         disposable.clear()
     }

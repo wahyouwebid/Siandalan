@@ -47,6 +47,14 @@
                 android:layout_marginTop="@dimen/_8sdp"
                 app:layout_constraintTop_toBottomOf="@+id/tv_approval"/>
 
+            <id.siandalan.app.common.uikit.UIKitEmptyData
+                android:id="@+id/uikit_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/tv_approval"/>
+
             <id.siandalan.app.common.uikit.UIKitChart
                 android:id="@+id/uikit_chart"
                 android:layout_width="match_parent"

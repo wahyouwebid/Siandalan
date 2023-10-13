@@ -1,5 +1,8 @@
 package id.siandalan.app.common.utils
 
+import android.os.Build
+import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -32,6 +35,16 @@ fun String.dateFormatComplete(
     return SimpleDateFormat(targetPattern, Locale.getDefault()).format(date)
 }
 
+fun String.dateFormatCompleteWithSecond(
+    sourcePattern: String = "yyyy-MM-dd HH:mm:ss",
+    targetPattern: String = "dd MMM yyyy HH:mm:ss",
+): String {
+    val locale = Locale("in", "ID")
+    val date = SimpleDateFormat(sourcePattern, locale).parse(this)!!
+    return SimpleDateFormat(targetPattern, Locale.getDefault()).format(date)
+}
+
+
 fun String.dateFormat(
     sourcePattern: String = "yyyy-MM-dd",
     targetPattern: String = "dd MMM yyyy",
@@ -51,4 +64,9 @@ fun String.convertToCamelCase(): String {
     }
 
     return camelCaseWords.joinToString(" ")
+}
+
+inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
+    Build.VERSION.SDK_INT >= 33 -> getParcelable(key, T::class.java)
+    else -> @Suppress("DEPRECATION") getParcelable(key) as? T
 }

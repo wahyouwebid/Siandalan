@@ -17,9 +17,19 @@ class DetailViewModel @Inject constructor(
         MutableLiveData()
     }
 
+    val revise: MutableLiveData<BaseResultState<ResponseBody>> by lazy {
+        MutableLiveData()
+    }
+
     fun getDetail(id: String?) {
         useCase.getDetail(id) {
             detail.postValue(it)
+        }
+    }
+
+    fun postRevise(id: String?, textRevise: String) {
+        useCase.postRevise(id, textRevise) {
+            revise.postValue(it)
         }
     }
 

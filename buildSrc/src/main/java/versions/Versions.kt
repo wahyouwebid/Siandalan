@@ -29,4 +29,6 @@ object Versions {
     const val EXPANDABLE = "2.9.2"
     const val AUTO_SLIDER = "1.0.2"
     const val GLIDE = "4.11.0"
+    const val PDF_VIEWER = "3.1.0-beta.1"
+    const val LOTTIE = "5.2.0"
 }

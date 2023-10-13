@@ -34,6 +34,8 @@ object Dependencies {
     const val EXPANDABLE = "com.github.cachapa:ExpandableLayout:${Versions.EXPANDABLE}"
     const val AUTO_SLIDER = "com.github.dangiashish:Auto-Image-Slider:${Versions.AUTO_SLIDER}"
     const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
+    const val PDF_VIEWER = "com.github.barteksc:android-pdf-viewer:${Versions.PDF_VIEWER}"
+    const val LOTTIE = "com.airbnb.android:lottie:${Versions.LOTTIE}"
 
     /** RxJava **/
     const val RX_ANDROID = "io.reactivex.rxjava3:rxandroid:${Versions.RX_ANDROID}"

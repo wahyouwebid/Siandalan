@@ -10,6 +10,7 @@ import id.siandalan.app.R
 import id.siandalan.app.common.base.BaseFragment
 import id.siandalan.app.common.base.BaseResultState
 import id.siandalan.app.common.navigation.Navigation
+import id.siandalan.app.common.utils.Constant
 import id.siandalan.app.common.utils.hide
 import id.siandalan.app.common.utils.show
 import id.siandalan.app.databinding.FragmentHomeBinding
@@ -57,7 +58,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         val homeAdapter = HomeAdapter {
             navigation?.navigate(
                 Navigation.HOME_TO_DETAIL.id,
-                bundleOf("id" to it.id)
+                bundleOf(Constant.DataParcelize.DATA.name to it)
             )
         }
 
@@ -68,6 +69,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         homeAdapter.setData(data.dataApproved)
         homeAdapter.notifyItemRangeChanged(0, homeAdapter.itemCount)
+
+        if (data.dataApproved?.isEmpty() == true) {
+            rvData.hide()
+            uikitEmpty.show()
+        } else {
+            rvData.show()
+            uikitEmpty.hide()
+        }
     }
 
     private fun onLoading(isLoading: Boolean) = with(binding){

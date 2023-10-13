@@ -67,6 +67,8 @@ dependencies {
     implementation(Dependencies.EXPANDABLE)
     implementation(Dependencies.AUTO_SLIDER)
     implementation(Dependencies.GLIDE)
+    implementation(Dependencies.PDF_VIEWER)
+    implementation(Dependencies.LOTTIE)
 
     // Navigation Component
     implementation(Dependencies.NAVIGATION_FRAGMENT)

@@ -7,6 +7,11 @@ interface DetailRepository {
 
     fun getDetail(id: String?): Observable<ResponseBody>
 
+    fun postRevise(
+        id: String?,
+        catatanDraftSk: String?,
+    ): Observable<ResponseBody>
+
     fun getToken(): String
 
     fun getModule(): String

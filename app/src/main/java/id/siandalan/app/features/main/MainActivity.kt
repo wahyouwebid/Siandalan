@@ -51,8 +51,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     private fun showNavigation() = with(binding){
-        bottomNavigation.show()
-        bottomAppBar.show()
+        bottomNavigation.hide()
+        bottomAppBar.hide()
         uikitToolbar.show()
     }
 

@@ -80,4 +80,20 @@ class UIKitLoading(
             progress.hide()
         }
     }
+
+    fun setLoadingProgressWithTextStroke(isLoading: Boolean) = with(binding) {
+        if (isLoading) {
+            root.show()
+            shimmerHome.hide()
+            shimmerRequest.hide()
+            loadingProgress.hide()
+            progress.hide()
+        } else {
+            root.hide()
+            shimmerHome.hide()
+            shimmerRequest.hide()
+            loadingProgress.hide()
+            progress.hide()
+        }
+    }
 }

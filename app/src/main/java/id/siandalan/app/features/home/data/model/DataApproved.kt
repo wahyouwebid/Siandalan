@@ -249,5 +249,9 @@ data class DataApproved(
     val x: String?,
     @SerializedName("y")
     @Expose
-    val y: String?
+    val y: String?,
+    @SerializedName("kapasitas_riil")
+    @Expose
+    val kapasitasRiil: String?,
+
 )

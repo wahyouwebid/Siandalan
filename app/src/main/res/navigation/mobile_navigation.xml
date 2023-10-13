@@ -11,13 +11,12 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_navigation_detail"
-            app:destination="@id/navigation_detail"
+            android:id="@+id/action_navigation_home_to_detailFragment"
+            app:destination="@id/detailFragment"
             app:enterAnim="@anim/anim_slide_in_right"
             app:exitAnim="@anim/anim_slide_out_left"
             app:popEnterAnim="@anim/anim_slide_in_left"
-            app:popExitAnim="@anim/anim_slide_out_right"
-            app:popUpToInclusive="false"/>
+            app:popExitAnim="@anim/anim_slide_out_right"/>
     </fragment>
 
     <fragment
@@ -26,36 +25,24 @@
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_request" >
         <action
-            android:id="@+id/action_navigation_request_to_navigation_detail"
-            app:destination="@id/navigation_detail"
+            android:id="@+id/action_navigation_request_to_detailFragment"
+            app:destination="@id/detailFragment"
             app:enterAnim="@anim/anim_slide_in_right"
             app:exitAnim="@anim/anim_slide_out_left"
             app:popEnterAnim="@anim/anim_slide_in_left"
-            app:popExitAnim="@anim/anim_slide_out_right"
-            app:popUpToInclusive="false"/>
+            app:popExitAnim="@anim/anim_slide_out_right"/>
     </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="id.siandalan.app.features.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" >
-
-        <action
-            android:id="@+id/action_navigation_request_to_navigation_detail"
-            app:destination="@id/navigation_detail"
-            app:enterAnim="@anim/anim_slide_in_right"
-            app:exitAnim="@anim/anim_slide_out_left"
-            app:popEnterAnim="@anim/anim_slide_in_left"
-            app:popExitAnim="@anim/anim_slide_out_right"
-            app:popUpToInclusive="false"/>
-    </fragment>
-
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/navigation_detail"
+        android:id="@+id/detailFragment"
         android:name="id.siandalan.app.features.detail.presentation.DetailFragment"
         android:label="DetailFragment"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail"/>
 
 </navigation>

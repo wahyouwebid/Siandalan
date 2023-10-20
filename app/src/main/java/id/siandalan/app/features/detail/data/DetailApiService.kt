@@ -34,4 +34,23 @@ interface DetailApiService {
         @Field("username") username: String,
     ): Observable<ResponseBody>
 
+    @FormUrlEncoded
+    @POST("modules/{module}/public/Api/Android/Api_andalalin/tte_sk")
+    fun postTtd(
+        @Header("Authorization") token: String,
+        @Path("module") module: String,
+        @Field("id") id: String?,
+        @Field("passphrase") passphrase: String?,
+        @Field("username") username: String,
+    ): Observable<ResponseBody>
+
+    @FormUrlEncoded
+    @POST("modules/{module}/public/Api/Android/Api_andalalin/approve_draft_sk")
+    fun postApprove(
+        @Header("Authorization") token: String,
+        @Path("module") module: String,
+        @Field("id") id: String?,
+        @Field("username") username: String,
+    ): Observable<ResponseBody>
+
 }

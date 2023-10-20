@@ -21,6 +21,14 @@ class DetailViewModel @Inject constructor(
         MutableLiveData()
     }
 
+    val ttd: MutableLiveData<BaseResultState<ResponseBody>> by lazy {
+        MutableLiveData()
+    }
+
+    val approve: MutableLiveData<BaseResultState<ResponseBody>> by lazy {
+        MutableLiveData()
+    }
+
     fun getDetail(id: String?) {
         useCase.getDetail(id) {
             detail.postValue(it)
@@ -32,5 +40,19 @@ class DetailViewModel @Inject constructor(
             revise.postValue(it)
         }
     }
+
+    fun postApprove(id: String?) {
+        useCase.postApprove(id) {
+            approve.postValue(it)
+        }
+    }
+
+    fun postTtd(id: String?, passphrase: String?) {
+        useCase.postTtd(id, passphrase) {
+            ttd.postValue(it)
+        }
+    }
+
+    fun getModule() = useCase.getModule()
 
 }

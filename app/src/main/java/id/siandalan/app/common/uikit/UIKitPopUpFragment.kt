@@ -53,7 +53,7 @@ class UIKitPopUpFragment(private val fragment: Fragment) : Dialog(fragment.requi
         dialog?.show()
     }
 
-    fun showPopupSuccess() {
+    fun showPopupSuccess(title: String) {
         val dialog = fragment.context?.let { Dialog(it) }
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.setCancelable(true)
@@ -69,6 +69,7 @@ class UIKitPopUpFragment(private val fragment: Fragment) : Dialog(fragment.requi
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         with(binding) {
+            tvTitlePopup.text = title
             btnPositive.setOnClickListener {
                 dialog?.dismiss()
             }

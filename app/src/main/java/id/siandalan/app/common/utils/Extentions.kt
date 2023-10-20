@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.FileProvider
 import java.io.File
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -79,6 +80,13 @@ inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
     else -> @Suppress("DEPRECATION") getParcelable(key) as? T
 }
 
+inline fun <reified T : Parcelable> Bundle.parcelableArrayList(key: String): ArrayList<T>? {
+    return when {
+        Build.VERSION.SDK_INT >= 33 -> getParcelableArrayList(key, T::class.java)
+        else -> @Suppress("DEPRECATION") getParcelableArrayList(key)
+    }
+}
+
 fun Context.openDownloadedPDF(fileName: String) {
     val file =
         File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName)
@@ -99,4 +107,13 @@ fun Context.openDownloadedPDF(fileName: String) {
     } catch (e: ActivityNotFoundException) {
         Log.e("TAG", "Failed to open PDF  ${e.localizedMessage}")
     }
+}
+
+fun String?.checkEmpty(): String {
+    return if (this.isNullOrEmpty()) "-" else this
+}
+
+fun Double.formatCurrency(): String {
+    val currencyFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+    return currencyFormat.format(this)
 }

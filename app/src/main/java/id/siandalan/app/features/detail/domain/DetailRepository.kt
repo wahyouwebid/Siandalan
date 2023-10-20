@@ -12,6 +12,15 @@ interface DetailRepository {
         catatanDraftSk: String?,
     ): Observable<ResponseBody>
 
+    fun postTtd(
+        id: String?,
+        passphrase: String?,
+    ): Observable<ResponseBody>
+
+    fun postApprove(
+        id: String?,
+    ): Observable<ResponseBody>
+
     fun getToken(): String
 
     fun getModule(): String

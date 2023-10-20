@@ -12,6 +12,13 @@ import id.siandalan.app.BuildConfig
 object Constant {
 
     enum class DataParcelize {
-        DATA
+        DATA,
+        DOCUMENT,
+        ROLE
+    }
+
+    enum class Role {
+        KASUBDIT,
+        DIREKTUR
     }
 }

@@ -31,11 +31,14 @@ import id.siandalan.app.common.base.BaseFragment
 import id.siandalan.app.common.base.BaseResultState
 import id.siandalan.app.common.uikit.UIKitPopUpFragment
 import id.siandalan.app.common.utils.Constant
+import id.siandalan.app.common.utils.checkEmpty
 import id.siandalan.app.common.utils.dateFormat
 import id.siandalan.app.common.utils.dateFormatCompleteWithSecond
+import id.siandalan.app.common.utils.formatCurrency
 import id.siandalan.app.common.utils.hide
 import id.siandalan.app.common.utils.openDownloadedPDF
 import id.siandalan.app.common.utils.parcelable
+import id.siandalan.app.common.utils.parcelableArrayList
 import id.siandalan.app.common.utils.show
 import id.siandalan.app.core.sessions.Sessions
 import id.siandalan.app.databinding.FragmentDetailBinding
@@ -59,20 +62,17 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         arguments?.parcelable(Constant.DataParcelize.DATA.name)
     }
 
-    private var documentItem: HomeItem.DataApprovedItem.DocumentItem? = null
-
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            downloadPdf()
-        }
-        else Toast.makeText(
-            activity,
-            "Permission is needed to activate this feature.",
-            Toast.LENGTH_SHORT
-        ).show()
+    private val dataDocument: List<HomeItem.DocumentItem>? by lazy {
+        arguments?.parcelableArrayList(Constant.DataParcelize.DOCUMENT.name)
     }
+
+    private val dataRole: String? by lazy {
+        arguments?.getString(Constant.DataParcelize.ROLE.name)
+    }
+
+    private var documentItem: HomeItem.DocumentItem? = null
+
+    private var fileDocumentSk: String? = null
 
     override fun setupView(savedInstanceState: Bundle?) = with(binding){
         uikitToolbar.setToolbar(data?.no + " : " + data?.projectName) {
@@ -94,39 +94,39 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
             }
         }
 
-        cvDaftarDokumen.setOnClickListener {
-            val homeAdapter = DetailDokumenAdapter {
-                documentItem = it
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    downloadPdf()
-                } else {
-                    when {
-                        requireContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED -> {
-                            downloadPdf()
-                        }
-                        shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) -> {
-                            Toast.makeText(
-                                requireContext(),
-                                "Permission is needed to activate this feature.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        }
-                        else -> {
-                            requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        }
+        val homeAdapter = DetailDokumenAdapter {
+            documentItem = it
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                downloadPdf()
+            } else {
+                when {
+                    requireContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED -> {
+                        downloadPdf()
+                    }
+                    shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) -> {
+                        Toast.makeText(
+                            requireContext(),
+                            "Permission is needed to activate this feature.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    }
+                    else -> {
+                        requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     }
                 }
             }
+        }
 
-            rvDaftarDokumen.setHasFixedSize(false)
-            rvDaftarDokumen.isNestedScrollingEnabled = false
-            rvDaftarDokumen.layoutManager = LinearLayoutManager(context)
-            rvDaftarDokumen.adapter = homeAdapter
+        rvDaftarDokumen.setHasFixedSize(false)
+        rvDaftarDokumen.isNestedScrollingEnabled = false
+        rvDaftarDokumen.layoutManager = LinearLayoutManager(context)
+        rvDaftarDokumen.adapter = homeAdapter
 
-            homeAdapter.setData(data?.dataDocument)
-            homeAdapter.notifyItemRangeChanged(0, homeAdapter.itemCount)
+        homeAdapter.setData(dataDocument)
+        homeAdapter.notifyItemRangeChanged(0, homeAdapter.itemCount)
 
+        cvDaftarDokumen.setOnClickListener {
             elDaftarDokumen.toggle()
             if (elDaftarDokumen.isExpanded) {
                 tvDaftarDokumen.setCompoundDrawablesWithIntrinsicBounds(
@@ -171,60 +171,103 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
             }
         }
 
-        btnRevise.setOnClickListener {
-            if (!etRevise.text.isNullOrEmpty()) {
-                viewModel.postRevise("1538", etRevise.text.toString())
-            } else {
-                Toast.makeText(requireContext(), "Form revisi tidak boleh kosong", Toast.LENGTH_SHORT).show()
+        if (dataRole == Constant.Role.KASUBDIT.name) {
+            btnRevise.setOnClickListener {
+                if (!etRevise.text.isNullOrEmpty()) {
+                    viewModel.postRevise(data?.id, etRevise.text.toString())
+                } else {
+                    Toast.makeText(requireContext(), "Form revisi tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                }
             }
+
+            btnApprove.setOnClickListener {
+                viewModel.postApprove(data?.id)
+            }
+        } else {
+            btnRevise.setOnClickListener {
+                if (!etRevise.text.isNullOrEmpty()) {
+                    viewModel.postRevise(data?.id, etRevise.text.toString())
+                } else {
+                    Toast.makeText(requireContext(), "Form revisi tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            tvEtTtdTanganLabel.show()
+            etTtdTangan.show()
+
+            btnApprove.text = getString(R.string.title_tanda_tangan)
+            btnApprove.setOnClickListener {
+                if (!etTtdTangan.text.isNullOrEmpty()) {
+                    viewModel.postTtd(data?.id, etTtdTangan.text.toString())
+                } else {
+                    Toast.makeText(requireContext(), "Form BSRE Passphrase tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        pdfSkAndalan.setOnClickListener {
+
         }
     }
 
     private fun setDataPengajuan() = with(binding){
-        tvPengajuanNib.text = data?.nib
-        tvPengajuanName.text = data?.name
-        tvPengajuanEmail.text = data?.emailPerusahaan
-        tvPengajuanPhone.text = data?.nomorTelponPerseroan
-        tvPengajuanLeaderName.text = data?.leaderName
-        tvPengajuanPosition.text = data?.leaderPosition
+        tvPengajuanNib.text = data?.nib.checkEmpty()
+        tvPengajuanName.text = data?.name.checkEmpty()
+        tvPengajuanEmail.text = data?.emailPerusahaan.checkEmpty()
+        tvPengajuanPhone.text = data?.nomorTelponPerseroan.checkEmpty()
+        tvPengajuanLeaderName.text = data?.leaderName.checkEmpty()
+        tvPengajuanPosition.text = data?.leaderPosition.checkEmpty()
 
-        tvPengajuanCategory.text = data?.category
-        tvPengajuanSubCategory.text = data?.subCategory
-        tvPengajuanUkuran.text = data?.capacity
-        tvPengajuanKlasifikasi.text = data?.classification
-        tvPengajuanKapasitasRill.text = data?.kapasitasRiil
-        tvPengajuanNamaProyek.text = data?.projectName
-        tvPengajuanPembangunan.text = data?.pembangunan
-        tvPengajuanAlamatProyek.text = data?.projectAddress
-        tvPengajuanProvinsi.text = data?.projectProvince
-        tvPengajuanKota.text = data?.projectRegency
-        tvPengajuanNoSuratPermohonan.text = data?.applicationLetterNo
-        tvPengajuanTglSuratPermohonan.text = data?.applicationLetterDate?.dateFormat()
+        tvPengajuanCategory.text = data?.category.checkEmpty()
+        tvPengajuanSubCategory.text = data?.subCategory.checkEmpty()
+        tvPengajuanUkuran.text = data?.capacity.checkEmpty()
+        tvPengajuanKlasifikasi.text = data?.classification.checkEmpty()
+        tvPengajuanKapasitasRill.text = data?.kapasitasRiil.checkEmpty()
+        tvPengajuanNamaProyek.text = data?.projectName.checkEmpty()
+        tvPengajuanPembangunan.text = data?.pembangunan.checkEmpty()
+        tvPengajuanAlamatProyek.text = data?.projectAddress.checkEmpty()
+        tvPengajuanProvinsi.text = data?.projectProvince.checkEmpty()
+        tvPengajuanKota.text = data?.projectRegency.checkEmpty()
+        tvPengajuanNoSuratPermohonan.text = data?.applicationLetterNo.checkEmpty()
+        tvPengajuanTglSuratPermohonan.text = data?.applicationLetterDate?.dateFormat().checkEmpty()
     }
 
     private fun setPembayaranPnbp() = with(binding) {
-        tvPembayaranNoAndalin.text = data?.noAndalalin
-        tvPembayaranHarga.text = data?.price
-        tvKodeBilling.text = data?.pengajuanKodeBilling
-        tvKodeBilling.text = data?.billingCode
-        tvTanggalPembayaran.text = data?.paymentDate?.dateFormatCompleteWithSecond()
-        tvKodeBilling.text = data?.billingCode
+        tvPembayaranNoAndalin.text = data?.noAndalalin.checkEmpty()
+        tvPembayaranHarga.text = if (data?.price != null) {
+            data?.price?.toDouble()?.formatCurrency()?.replace("Rp", "Rp. ")
+        } else {
+            "-"
+        }
+        tvKodeBilling.text = data?.pengajuanKodeBilling.checkEmpty()
+        tvKodeBilling.text = data?.billingCode.checkEmpty()
+        tvTanggalPembayaran.text = data?.paymentDate?.dateFormatCompleteWithSecond().checkEmpty()
+        tvKodeBilling.text = data?.billingCode.checkEmpty()
 
-        val sessions = Sessions(requireContext())
-        val module = sessions.getString(Sessions.module)
-
-        val urlInvoice = "${BuildConfig.baseUrl}/modules/${module}/public/${data?.finalLetterFile}"
-        val urlKuitansi = "${BuildConfig.baseUrl}/modules/${module}/public/${data?.finalLetterFile}"
-        setupPdf(urlInvoice, pdfPembayaranInvoice)
-        setupPdf(urlKuitansi, pdfPembayaranKuitansi)
+        val urlInvoice = "${BuildConfig.baseUrl}modules/${getModule()}/public/${data?.draftFinalLetterFile}"
+        val urlKuitansi = "${BuildConfig.baseUrl}modules/${getModule()}/public/${data?.draftFinalLetterFile}"
+//        setupPdf(urlInvoice, pdfPembayaranInvoice)
+//        setupPdf(urlKuitansi, pdfPembayaranKuitansi)
     }
 
-    private fun setSkAndalan() {
-        val sessions = Sessions(requireContext())
-        val module = sessions.getString(Sessions.module)
+    private fun setSkAndalan()= with(binding){
+        val urlSk = "${BuildConfig.baseUrl}modules/${getModule()}/public/${data?.draftFinalLetterFile}"
+        val fileName = data?.draftFinalLetterFile?.replace("uploads/andalalin/", "")
+        fileDocumentSk = fileName
+        setupPdf(urlSk, pdfSkAndalan)
+        pdfSkAndalan.setOnClickListener {
+            val request = DownloadManager.Request(Uri.parse(urlSk))
+                .setTitle("$fileName")
+                .setDescription("Downloading $fileName")
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "${fileName}.pdf")
 
-        val urlSk = "${BuildConfig.baseUrl}/modules/${module}/public/${data?.finalLetterFile}"
-        setupPdf(urlSk, binding.pdfSkAndalan)
+            val dm = activity?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            dm.enqueue(request)
+
+            val intentBroadCast = Intent(DownloadManager.ACTION_VIEW_DOWNLOADS)
+            LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intentBroadCast)
+        }
     }
 
     private fun setupPdf(url: String, pdfView: PDFView) {
@@ -233,7 +276,7 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
                 val input = URL(url).openStream()
                 pdfView.fromStream(input)
                     .swipeHorizontal(false)
-                    .enableSwipe(true)
+                    .enableSwipe(false)
                     .enableAnnotationRendering(true)
                     .onDrawAll { canvas, pageWidth, pageHeight, _ ->
                         val bitmap =
@@ -260,12 +303,12 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
     }
 
     private fun downloadPdf() {
-        val urlPdf = "${BuildConfig.baseUrl}/modules/pusat/public/${documentItem?.documentLink}"
-        val request = DownloadManager.Request(Uri.parse(urlPdf))
-            .setTitle("${documentItem?.documentName}")
-            .setDescription("Downloading ${documentItem?.documentName}")
+        val url = documentItem?.fileName
+        val request = DownloadManager.Request(Uri.parse(url))
+            .setTitle("${documentItem?.name}")
+            .setDescription("Downloading ${documentItem?.name}")
             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "${documentItem?.documentName}.pdf")
+            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "${documentItem?.name}.pdf")
 
         val dm = activity?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         dm.enqueue(request)
@@ -278,7 +321,6 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         setDataPengajuan()
         setPembayaranPnbp()
         setSkAndalan()
-        onLoading(false)
 
         viewModel.revise.observe(viewLifecycleOwner) {
             when(it) {
@@ -286,9 +328,39 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
                 is BaseResultState.Success -> {
                     onLoading(false)
                     binding.etRevise.setText("")
-                    UIKitPopUpFragment(this).showPopupSuccess()
+                    UIKitPopUpFragment(this).showPopupSuccess(
+                        getString(R.string.title_revise_success)
+                    )
                 }
-                is BaseResultState.Error -> onError()
+                is BaseResultState.Error -> onErrorRevise()
+            }
+        }
+
+        viewModel.ttd.observe(viewLifecycleOwner) {
+            when(it) {
+                is BaseResultState.Loading -> onLoading(true)
+                is BaseResultState.Success -> {
+                    onLoading(false)
+                    binding.etTtdTangan.setText("")
+                    UIKitPopUpFragment(this).showPopupSuccess(
+                        getString(R.string.title_ttd_success)
+                    )
+                }
+                is BaseResultState.Error -> onErrorRevise()
+            }
+        }
+
+        viewModel.approve.observe(viewLifecycleOwner) {
+            when(it) {
+                is BaseResultState.Loading -> onLoading(true)
+                is BaseResultState.Success -> {
+                    onLoading(false)
+                    binding.etRevise.setText("")
+                    UIKitPopUpFragment(this).showPopupSuccess(
+                        getString(R.string.title_approve_success)
+                    )
+                }
+                is BaseResultState.Error -> onErrorApprove()
             }
         }
     }
@@ -304,10 +376,17 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
     }
 
 
-    private fun onError() = with(binding){
+    private fun onErrorRevise() = with(binding){
         uikitLoading.hide()
         UIKitPopUpFragment(this@DetailFragment).showPopupError {
             viewModel.postRevise(data?.id, etRevise.text.toString())
+        }
+    }
+
+    private fun onErrorApprove() = with(binding){
+        uikitLoading.hide()
+        UIKitPopUpFragment(this@DetailFragment).showPopupError {
+            viewModel.postApprove(data?.id)
         }
     }
 
@@ -317,17 +396,46 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
             broadCastDownloadComplete,
             IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
         )
+
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
+            broadCastDownloadDocSkComplete,
+            IntentFilter(DownloadManager.ACTION_VIEW_DOWNLOADS)
+        )
     }
 
     override fun onPause() {
         super.onPause()
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(broadCastDownloadComplete)
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(broadCastDownloadDocSkComplete)
     }
 
     private var broadCastDownloadComplete = object : BroadcastReceiver() {
         override fun onReceive(contex: Context?, p1: Intent?) {
-            requireContext().openDownloadedPDF("${documentItem?.documentName}.pdf")
+            requireContext().openDownloadedPDF("${documentItem?.name}.pdf")
         }
+    }
+
+    private var broadCastDownloadDocSkComplete = object : BroadcastReceiver() {
+        override fun onReceive(contex: Context?, p1: Intent?) {
+            requireContext().openDownloadedPDF("${fileDocumentSk}.pdf")
+        }
+    }
+
+    private fun getModule(): String {
+        return viewModel.getModule()
+    }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            downloadPdf()
+        }
+        else Toast.makeText(
+            activity,
+            "Permission is needed to activate this feature.",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 

@@ -806,15 +806,54 @@
                                 android:textSize="@dimen/_13ssp"
                                 tools:text="09 October 2023 12:00:00" />
 
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                android:layout_marginTop="@dimen/_24sdp"
+                                android:background="@color/grey2"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/_16sdp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:text="@string/title_detail_invoice"
+                                android:textColor="@color/colorTextSecondary"
+                                android:textSize="@dimen/_15ssp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                android:layout_marginTop="@dimen/_16sdp"
+                                android:background="@color/grey2"/>
+
                             <com.github.barteksc.pdfviewer.PDFView
                                 android:id="@+id/pdf_pembayaran_invoice"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_500sdp" />
+                                android:layout_height="@dimen/_500sdp"
+                                android:layout_marginTop="@dimen/_16sdp"/>
 
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="3dp"
                                 android:layout_marginTop="@dimen/_24sdp"
+                                android:background="@color/grey2"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/_16sdp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:text="@string/title_detail_kuitansi"
+                                android:textColor="@color/colorTextSecondary"
+                                android:textSize="@dimen/_15ssp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                android:layout_marginTop="@dimen/_16sdp"
                                 android:background="@color/grey2"/>
 
                             <com.github.barteksc.pdfviewer.PDFView
@@ -929,6 +968,38 @@
                 android:paddingTop="@dimen/_16sdp"
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_16sdp"
+                android:textColorHint="@color/grey"
+                android:textSize="@dimen/_14ssp" />
+
+            <TextView
+                android:id="@+id/tv_et_ttd_tangan_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_26sdp"
+                android:layout_marginEnd="@dimen/_26sdp"
+                android:fontFamily="@font/poppins_bold"
+                android:paddingTop="@dimen/_22sdp"
+                android:text="@string/title_bsre"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_16ssp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/view_sk_andalan" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_ttd_tangan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_26sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_26sdp"
+                android:background="@drawable/bg_edit_text"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/title_bsre_enter"
+                android:paddingStart="@dimen/_24sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingBottom="@dimen/_16sdp"
+                android:visibility="gone"
                 android:textColorHint="@color/grey"
                 android:textSize="@dimen/_14ssp" />
 

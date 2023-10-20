@@ -100,5 +100,12 @@
     <string name="title_empty_des">Data mungkin belum terbaru, silakan tekan tombol reload</string>
     <string name="title_daftar_dokumen">DAFTAR DOKUMEN</string>
     <string name="title_revise_success">Revisi Telah Berhasil di Kirim</string>
+    <string name="title_ttd_success">Tanda Tangan Telah Berhasil di Kirim</string>
     <string name="title_oke">OKE</string>
+    <string name="title_approve_success">Berhasil Di Approve</string>
+    <string name="title_detail_kuitansi">KUITANSI</string>
+    <string name="title_detail_invoice">INVOICE</string>
+    <string name="title_tanda_tangan">Tanda Tangan</string>
+    <string name="title_bsre">BSRE Passphrase</string>
+    <string name="title_bsre_enter">Silakan masukkan BSRE</string>
 </resources>

@@ -38,6 +38,36 @@ class DetailInteractor @Inject constructor(
             .let { disposable.add(it) }
     }
 
+    override fun postTtd(
+        id: String?,
+        passphrase: String?,
+        callback: (BaseResultState<ResponseBody>) -> Unit
+    ) {
+        repository.postTtd(id, passphrase)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map<BaseResultState<ResponseBody>> { BaseResultState.Success(it) }
+            .onErrorReturn { BaseResultState.Error(it) }
+            .startWithItem(BaseResultState.Loading)
+            .subscribe(callback)
+            .let { disposable.add(it) }
+    }
+
+    override fun postApprove(id: String?, callback: (BaseResultState<ResponseBody>) -> Unit) {
+        repository.postApprove(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map<BaseResultState<ResponseBody>> { BaseResultState.Success(it) }
+            .onErrorReturn { BaseResultState.Error(it) }
+            .startWithItem(BaseResultState.Loading)
+            .subscribe(callback)
+            .let { disposable.add(it) }
+    }
+
+    override fun getModule(): String {
+        return repository.getModule()
+    }
+
     override fun clearDisposable() {
         disposable.clear()
     }

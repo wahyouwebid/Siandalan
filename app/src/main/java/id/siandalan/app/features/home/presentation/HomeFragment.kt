@@ -55,27 +55,61 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private fun setDataApproval(data: HomeItem) = with(binding) {
         val navigation = activity?.findNavController(R.id.nav_host_main)
-        val homeAdapter = HomeAdapter {
+        val dataLisDoc = if (data.dataDrafted?.isEmpty() == true) {
+            Constant.DataParcelize.DOCUMENT.name to data.docApprove
+        } else {
+            Constant.DataParcelize.DOCUMENT.name to data.docDrafted
+        }
+
+        val dataRole = if (data.dataDrafted?.isEmpty() == true) {
+            Constant.DataParcelize.ROLE.name to Constant.Role.DIREKTUR.name
+        } else {
+            Constant.DataParcelize.ROLE.name to Constant.Role.KASUBDIT.name
+        }
+
+        val homeAdapter = HomeAdapter { draftItem ->
             navigation?.navigate(
                 Navigation.HOME_TO_DETAIL.id,
-                bundleOf(Constant.DataParcelize.DATA.name to it)
+                bundleOf(
+                    Constant.DataParcelize.DATA.name to draftItem,
+                    dataLisDoc,
+                    dataRole
+                )
             )
         }
 
-        rvData.setHasFixedSize(false)
-        rvData.isNestedScrollingEnabled = false
-        rvData.layoutManager = LinearLayoutManager(context)
-        rvData.adapter = homeAdapter
+        if (data.dataDrafted?.isEmpty() == true) {
+            rvData.setHasFixedSize(false)
+            rvData.isNestedScrollingEnabled = false
+            rvData.layoutManager = LinearLayoutManager(context)
+            rvData.adapter = homeAdapter
 
-        homeAdapter.setData(data.dataApproved)
-        homeAdapter.notifyItemRangeChanged(0, homeAdapter.itemCount)
+            homeAdapter.setData(data.dataApproved)
+            homeAdapter.notifyItemRangeChanged(0, homeAdapter.itemCount)
 
-        if (data.dataApproved?.isEmpty() == true) {
-            rvData.hide()
-            uikitEmpty.show()
+            if (data.dataApproved?.isEmpty() == true) {
+                rvData.hide()
+                uikitEmpty.show()
+            } else {
+                rvData.show()
+                uikitEmpty.hide()
+            }
         } else {
-            rvData.show()
-            uikitEmpty.hide()
+            rvData.setHasFixedSize(false)
+            rvData.isNestedScrollingEnabled = false
+            rvData.layoutManager = LinearLayoutManager(context)
+            rvData.adapter = homeAdapter
+
+            homeAdapter.setData(data.dataDrafted)
+            homeAdapter.notifyItemRangeChanged(0, homeAdapter.itemCount)
+
+            if (data.dataDrafted?.isEmpty() == true) {
+                rvData.hide()
+                uikitEmpty.show()
+            } else {
+                rvData.show()
+                uikitEmpty.hide()
+            }
         }
     }
 

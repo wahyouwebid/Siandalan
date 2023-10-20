@@ -19,7 +19,10 @@ data class HomeItem(
     val finish: Int?,
     val long: Int?,
     val draftApprove: Int?,
+    val dataDrafted: List<DataApprovedItem>? = mutableListOf(),
     val dataApproved: List<DataApprovedItem>? = mutableListOf(),
+    val docDrafted: List<DocumentItem>? = mutableListOf(),
+    val docApprove: List<DocumentItem>? = mutableListOf(),
 ) {
     @Parcelize
     data class DataApprovedItem(
@@ -101,24 +104,12 @@ data class HomeItem(
         val verifikatorAkhir: String?,
         val verifikatorAwal: String?,
         val kapasitasRiil: String?,
-        val dataDocument: List<DocumentItem> = mutableListOf(
-            DocumentItem(
-                "Surat Permohonan Persetujuan Andalalin",
-                "uploads/andalalin/permohonan/ID_1538/surat_andalalin_32742_95_-_2.%20KATA%20PENGANTAR%20-%20SPBU%20PT.%20Tawakal%20Tsani%20Makmur.pdf",
-                "KATA PENGANTAR - SPBU PT. Tawakal Tsani Makmur.pdf"
-            ),
-            DocumentItem(
-                "Surat Bukti Kepemilikan atau Penguasaan Lahan",
-                "uploads/andalalin/permohonan/ID_1538/gambar_diusulkan_32756_28_-_BAB%206%20-%20SPBU%20PT.%20Tawakal%20Tsani%20Makmur.pdf",
-                "DAFTAR ISI - SPBU PT. Tawakal Tsani Makmur.pdf"
-            )
-        ),
-    ): Parcelable {
-        @Parcelize
-        data class DocumentItem(
-            val titleName: String,
-            val documentLink: String,
-            val documentName: String,
-        ): Parcelable
-    }
+    ): Parcelable
+
+    @Parcelize
+    data class DocumentItem(
+        val id: String?,
+        val name: String?,
+        val fileName: String?,
+    ): Parcelable
 }

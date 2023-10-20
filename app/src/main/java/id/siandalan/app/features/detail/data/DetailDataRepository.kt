@@ -23,10 +23,27 @@ class DetailDataRepository @Inject constructor(
 
     override fun postRevise(id: String?, catatanDraftSk: String?): Observable<ResponseBody> {
         val token = getToken()
-        val module = "pusat"
+        val module = getModule()
         val username = getUsername()
         val stat = "catatan_draft_sk"
         return api.postRevise(token,module, id, stat, catatanDraftSk, username)
+    }
+
+    override fun postTtd(
+        id: String?,
+        passphrase: String?
+    ): Observable<ResponseBody> {
+        val token = getToken()
+        val module = getModule()
+        val username = getUsername()
+        return api.postTtd(token,module, id, passphrase, username)
+    }
+
+    override fun postApprove(id: String?): Observable<ResponseBody> {
+        val token = getToken()
+        val module = getModule()
+        val username = getUsername()
+        return api.postApprove(token, module, id, username)
     }
 
     override fun getToken() = sessions.getString(Sessions.accessToken)

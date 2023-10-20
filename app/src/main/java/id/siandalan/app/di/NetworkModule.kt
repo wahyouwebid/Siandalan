@@ -54,7 +54,7 @@ class NetworkModule {
             writeTimeout(30, TimeUnit.SECONDS)
             addInterceptor(interceptor)
             addInterceptor(chuckerInterceptor)
-            //addInterceptor(apiKey)
+            addInterceptor(apiKey)
             cookieJar(WebViewCookieJar())
         }.build()
     }

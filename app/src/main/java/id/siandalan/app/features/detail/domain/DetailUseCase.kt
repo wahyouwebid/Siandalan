@@ -17,5 +17,18 @@ interface DetailUseCase {
         callback: (BaseResultState<ResponseBody>) -> Unit
     )
 
+    fun postTtd(
+        id: String?,
+        passphrase: String?,
+        callback: (BaseResultState<ResponseBody>) -> Unit
+    )
+
+    fun postApprove(
+        id: String?,
+        callback: (BaseResultState<ResponseBody>) -> Unit
+    )
+
+    fun getModule(): String
+
     fun clearDisposable()
 }

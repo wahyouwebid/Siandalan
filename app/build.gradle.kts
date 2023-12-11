@@ -27,14 +27,14 @@ android {
         named(AndroidBuildType.DEBUG) {
             isMinifyEnabled = false
             proguardFiles (getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", "baseUrl", "\"http://116.0.4.24:808/siandalan-pengembangan/\"")
+            buildConfigField("String", "baseUrl", "\"https://siandalan.dephub.go.id/\"")
             buildConfigField("String", "webUrl", "\"http://116.0.4.24:808/siandalan2022/public/\"")
         }
 
         named(AndroidBuildType.RELEASE) {
             isMinifyEnabled = true
             proguardFiles (getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", "baseUrl", "\"http://116.0.4.24:808/siandalan-pengembangan/\"")
+            buildConfigField("String", "baseUrl", "\"https://siandalan.dephub.go.id/\"")
             buildConfigField("String", "webUrl", "\"http://116.0.4.24:808/siandalan2022/public/\"")
         }
     }
